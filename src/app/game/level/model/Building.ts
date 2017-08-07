@@ -1,6 +1,6 @@
 import {Tile} from "./Tile";
 
-export class Tower implements Tile {
+export class Building implements Tile {
   name: string;
   hp: number;
 
