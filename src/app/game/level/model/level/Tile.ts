@@ -1,6 +1,6 @@
 import {GroundTypes} from "./GroundTypes";
 
-export class Tile {
+export interface Tile {
   x: number;
   y: number;
   w: number;
@@ -12,4 +12,14 @@ export class Tile {
   height: string;
 
   type: GroundTypes;
+
+  setX(x: number);
+
+  setY(y: number);
+
+  setWidth(w: number);
+
+  setHeight(h: number);
+
+
 }

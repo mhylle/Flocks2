@@ -3,7 +3,6 @@ import {Tile} from './model/level/Tile';
 import {Building} from './model/level/Building';
 import {Ground} from './model/level/Ground';
 import {GroundTypes} from "./model/level/GroundTypes";
-import {Unit} from "./model/units/Unit";
 
 
 @Component({
@@ -15,7 +14,6 @@ export class LevelComponent implements OnInit {
   GroundTypes: typeof GroundTypes = GroundTypes;
   towerPositions: number[][];
   level: Tile[] = [];
-  units: Unit[] = [];
 
   constructor() {
     this.towerPositions = [
@@ -59,24 +57,16 @@ export class LevelComponent implements OnInit {
         }
       }
     }
-
-
-    let archer = new Unit();
-
   }
 
   private sizeFactor = 32;
 
   private createGround(i: number, j: number, groundType: GroundTypes) {
     const ground = new Ground();
-    ground.y = i * this.sizeFactor;
-    ground.x = j * this.sizeFactor;
-    ground.w = this.sizeFactor;
-    ground.h = this.sizeFactor;
-    ground.posX = ground.x + "px";
-    ground.posY = ground.y + "px";
-    ground.width = ground.w + "px";
-    ground.height = ground.h + "px";
+    ground.setY(i * this.sizeFactor);
+    ground.setX(j * this.sizeFactor);
+    ground.setWidth(this.sizeFactor);
+    ground.setHeight(this.sizeFactor);
     ground.type = groundType;
     this.level.push(ground);
     return ground;
@@ -84,10 +74,10 @@ export class LevelComponent implements OnInit {
 
   private createBuilding(i: number, j: number) {
     const building = new Building();
-    building.y = i * this.sizeFactor;
-    building.x = j * this.sizeFactor;
-    building.w = this.sizeFactor;
-    building.h = this.sizeFactor;
+    building.setY(i * this.sizeFactor);
+    building.setX(j * this.sizeFactor);
+    building.setWidth(this.sizeFactor);
+    building.setHeight(this.sizeFactor);
     building.posX = building.x + "px";
     building.posY = building.y + "px";
     building.width = building.w + "px";
@@ -97,7 +87,5 @@ export class LevelComponent implements OnInit {
     return building;
   }
 
-  startGame() {
 
-  }
 }

@@ -17,5 +17,25 @@ export class Building implements Tile {
   width: string;
   height: string;
 
+  setX(x: number) {
+    this.x = x;
+    this.posX = x + "px";
+  }
+
+  setY(y: number) {
+    this.y = y;
+    this.posY = y + "px";
+  }
+
+  setWidth(w: number) {
+    this.w = w;
+    this.width = w + "px";
+  }
+
+  setHeight(h: number) {
+    this.h = h;
+    this.height = h + "px";
+  }
+
 
 }

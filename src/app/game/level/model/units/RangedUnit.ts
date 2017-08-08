@@ -1,17 +1,15 @@
-import {Tile} from "./Tile";
-import {GroundTypes} from "./GroundTypes";
+import {Unit} from "./Unit";
+import {UnitType} from "./UnitType";
 
-export class Ground implements Tile {
+export class RangedUnit implements Unit {
 
-  type: GroundTypes;
-
+  type: UnitType;
   x: number;
   y: number;
-  w: number;
-  h: number;
-
   posX: string;
   posY: string;
+  w: number;
+  h: number;
   width: string;
   height: string;
 
@@ -23,6 +21,7 @@ export class Ground implements Tile {
   setY(y: number) {
     this.y = y;
     this.posY = y + "px";
+
   }
 
   setWidth(w: number) {

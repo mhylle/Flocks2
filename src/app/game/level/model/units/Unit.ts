@@ -13,4 +13,12 @@ export interface Unit {
   width: string;
   height: string;
 
+  setX(x: number);
+
+  setY(y: number);
+
+  setWidth(w: number);
+
+  setHeight(h: number);
+
 }
