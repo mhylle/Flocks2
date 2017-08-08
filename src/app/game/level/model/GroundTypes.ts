@@ -1,5 +1,6 @@
-enum GroundTypes {
+export enum GroundTypes {
   Grass = 1,
-  Rock = 2,
-  Wall = 3
+  Water = 2,
+  Rock = 3,
+  Wall = 4
 }
