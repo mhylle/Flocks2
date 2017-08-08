@@ -1,9 +1,10 @@
 <div style="position: relative">
-  <div *ngFor="let tile of level" style="position: absolute; background-color: burlywood;"
-       [style.width]="tile.w"
-       [style.height]="tile.h"
-       [style.left]="tile.x"
-       [style.top]="tile.y">
-    {{tile.x}}{{tile.y}}
+  <div *ngFor="let tile of level" style="position: absolute;"
+       [ngClass]="GroundTypes[tile.type]"
+       [style.width]="tile.width"
+       [style.height]="tile.height"
+       [style.left]="tile.posX"
+       [style.top]="tile.posY">
+    <!--{{tile.x}}{{tile.y}}-->
   </div>
 </div>

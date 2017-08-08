@@ -11,11 +11,11 @@ import {GroundTypes} from "./model/GroundTypes";
   styleUrls: ['./level.component.css']
 })
 export class LevelComponent implements OnInit {
+  GroundTypes : typeof GroundTypes = GroundTypes;
   towerPositions: number[][];
   tileWidth: number = 10;
   tileHeight: number = 25;
   level: Tile[] = [];
-  GroundTypes : typeof GroundTypes = GroundTypes;
   constructor() {
     this.towerPositions = [
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -41,49 +41,54 @@ export class LevelComponent implements OnInit {
   }
 
   ngOnInit() {
-    for (let i = 0; i < this.tileWidth; i++) {
-      for (let j = 0; j < this.tileHeight; j++) {
+    for (let i = 0; i < this.towerPositions.length; i++) {
+      let row = this.towerPositions[i];
+      for (let j = 0; j < row.length; j++) {
         if (this.towerPositions[i][j] === 0) {
-          const grass = new Ground();
-          grass.x = i*10;
-          grass.y = j*10;
-          grass.w = 10;
-          grass.h = 10;
-          grass.type = GroundTypes.Grass;
-          this.level.push(grass);
+          this.createGround(i, j, GroundTypes.Grass);
         }
         if (this.towerPositions[i][j] === 1) {
-          const tower = new Building();
-          tower.x = i*10;
-          tower.y = j*10;
-          tower.w = 10;
-          tower.h = 10;
-
-          this.level.push(tower);
+          this.createBuilding(i, j);
         }
         if (this.towerPositions[i][j] === 2) {
-          const water = new Ground();
-          water.x = i*10;
-          water.y = j*10;
-          water.w = 10;
-          water.h = 10;
-
-          water.type = GroundTypes.Water;
-          this.level.push(water);
+          this.createGround(i, j, GroundTypes.Water);
         }
         if (this.towerPositions[i][j] === 3) {
-          const rock = new Ground();
-          rock.x = i*10;
-          rock.y = j*10;
-          rock.w = 10;
-          rock.h = 10;
-
-          rock.type = GroundTypes.Rock;
-          this.level.push(rock);
+          this.createGround(i, j, GroundTypes.Rock);
         }
       }
     }
 
   }
 
+  private sizeFactor = 25;
+
+  private createGround(i: number, j: number, groundType: GroundTypes) {
+    const ground = new Ground();
+    ground.y = i * this.sizeFactor;
+    ground.x = j * this.sizeFactor;
+    ground.w = this.sizeFactor;
+    ground.h = this.sizeFactor;
+    ground.posX = ground.x + "px";
+    ground.posY = ground.y + "px";
+    ground.width = ground.w + "px";
+    ground.height = ground.h + "px";
+    ground.type = groundType;
+    this.level.push(ground);
+    return ground;
+  }
+  private createBuilding(i: number, j: number) {
+    const building = new Building();
+    building.y = i * this.sizeFactor;
+    building.x = j * this.sizeFactor;
+    building.w = this.sizeFactor;
+    building.h = this.sizeFactor;
+    building.posX = building.x + "px";
+    building.posY = building.y + "px";
+    building.width = building.w + "px";
+    building.height = building.h + "px";
+    building.type = GroundTypes.Building;
+    this.level.push(building);
+    return building;
+  }
 }

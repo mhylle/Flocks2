@@ -1,0 +1,33 @@
+.Water {
+  background-color: blue;
+  width: 20px;
+  height: 20px;
+}
+
+.Rock {
+  background-color: saddlebrown;
+  width: 20px;
+  height: 20px;
+  
+}
+
+.Grass {
+  background-color: green;
+  width: 20px;
+  height: 20px;
+  
+}
+
+.Wall {
+  background-color: orange;
+  width: 20px;
+  height: 20px;
+  
+}
+
+.Building {
+  background-color: aqua;
+  width: 20px;
+  height: 20px;
+  
+}
