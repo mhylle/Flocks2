@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {Tile} from './model/Tile';
-import {Building} from './model/Building';
-import {Ground} from './model/Ground';
-import {GroundTypes} from "./model/GroundTypes";
+import {Tile} from './model/level/Tile';
+import {Building} from './model/level/Building';
+import {Ground} from './model/level/Ground';
+import {GroundTypes} from "./model/level/GroundTypes";
+import {Unit} from "./model/units/Unit";
 
 
 @Component({
@@ -14,6 +15,7 @@ export class LevelComponent implements OnInit {
   GroundTypes: typeof GroundTypes = GroundTypes;
   towerPositions: number[][];
   level: Tile[] = [];
+  units: Unit[] = [];
 
   constructor() {
     this.towerPositions = [
@@ -58,9 +60,12 @@ export class LevelComponent implements OnInit {
       }
     }
 
+
+    let archer = new Unit();
+
   }
 
-  private sizeFactor = 25;
+  private sizeFactor = 32;
 
   private createGround(i: number, j: number, groundType: GroundTypes) {
     const ground = new Ground();
@@ -90,5 +95,9 @@ export class LevelComponent implements OnInit {
     building.type = GroundTypes.Building;
     this.level.push(building);
     return building;
+  }
+
+  startGame() {
+
   }
 }
