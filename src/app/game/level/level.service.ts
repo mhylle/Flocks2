@@ -10,9 +10,9 @@ import {UnitType} from "./model/units/UnitType";
 export class LevelService {
 
   towerPositions: number[][];
-  level: Tile[][];
+  level: Tile[][] = [];
 
-  visited: boolean[][];
+  visited: boolean[][] = [];
 
   constructor() {
     this.towerPositions = [
@@ -36,10 +36,9 @@ export class LevelService {
       [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     ];
-
     for (let i = 0; i < this.towerPositions.length; i++) {
       this.level[i] = [];
-      this.visited[i] =[];
+      this.visited[i] = [];
       let row = this.towerPositions[i];
       for (let j = 0; j < row.length; j++) {
         if (this.towerPositions[i][j] === 0) {
@@ -57,9 +56,6 @@ export class LevelService {
         this.visited[i][j] = false;
       }
     }
-
-
-
   }
 
   getLevel(): Tile[][] {
@@ -69,6 +65,7 @@ export class LevelService {
   getWidthInTiles(): number {
     return this.level.length;
   }
+
   getHeightInTiles(): number {
     return this.level[0].length;
   }
@@ -115,7 +112,7 @@ export class LevelService {
     this.level[i][j] = building;
   }
 
-  cost(unit: Unit, xp: number, yp: number) : number{
+  cost(unit: Unit, xp: number, yp: number): number {
     if (this.level[xp] != null) {
       let tile = this.level[xp][yp];
       switch (tile.type) {
@@ -130,6 +127,7 @@ export class LevelService {
             case UnitType.Artillery:
               return 20;
           }
+          return 12;
         case GroundTypes.Rock:
           switch (unit.type) {
             case UnitType.Archer:
@@ -139,6 +137,7 @@ export class LevelService {
             case UnitType.Artillery:
               return 12;
           }
+          return 14;
         case GroundTypes.Water:
           switch (unit.type) {
             case UnitType.Archer:
@@ -148,6 +147,7 @@ export class LevelService {
             case UnitType.Artillery:
               return 2000;
           }
+          return 20;
       }
     }
     return 2;

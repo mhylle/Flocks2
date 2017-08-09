@@ -11,11 +11,17 @@ import {LevelService} from "./level.service";
 })
 export class LevelComponent implements OnInit {
   GroundTypes: typeof GroundTypes = GroundTypes;
-  towerPositions: Tile[][];
+
   level: Tile[] = [];
 
   constructor(private levelService: LevelService) {
-    this.towerPositions = levelService.getLevel();
+    let towerPositions = levelService.getLevel();
+    for (let i = 0; i < towerPositions.length; i++) {
+      let row = towerPositions[i];
+      for (let j = 0; j < row.length; j++) {
+        this.level.push(row[j]);
+      }
+    }
   }
 
   ngOnInit() {

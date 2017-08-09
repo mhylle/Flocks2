@@ -6,6 +6,7 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { LevelComponent } from './game/level/level.component';
 import { GameEngineComponent } from './game/gameengine/game.engine.component';
+import {LevelService} from "./game/level/level.service";
 
 @NgModule({
   declarations: [
@@ -18,7 +19,7 @@ import { GameEngineComponent } from './game/gameengine/game.engine.component';
     FormsModule,
     HttpModule
   ],
-  providers: [],
+  providers: [LevelService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
