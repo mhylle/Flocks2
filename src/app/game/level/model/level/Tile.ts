@@ -21,5 +21,7 @@ export interface Tile {
 
   setHeight(h: number);
 
+  isBlocked(): boolean;
+
 
 }
