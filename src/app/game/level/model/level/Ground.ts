@@ -14,6 +14,7 @@ export class Ground implements Tile {
   posY: string;
   width: string;
   height: string;
+  private blocked: boolean;
 
   setX(x: number) {
     this.x = x;
@@ -35,4 +36,11 @@ export class Ground implements Tile {
     this.height = h + "px";
   }
 
+  isBlocked(): boolean {
+    return this.blocked;
+  }
+
+  setBlocked(blocked: boolean) {
+    this.blocked = blocked;
+  }
 }

@@ -36,6 +36,9 @@ export class Building implements Tile {
     this.h = h;
     this.height = h + "px";
   }
+  isBlocked(): boolean {
+    return true;
+  }
 
 
 }

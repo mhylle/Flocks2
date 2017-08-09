@@ -1,7 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {Tile} from './model/level/Tile';
-import {Building} from './model/level/Building';
-import {Ground} from './model/level/Ground';
 import {GroundTypes} from "./model/level/GroundTypes";
 import {LevelService} from "./level.service";
 
@@ -13,7 +11,7 @@ import {LevelService} from "./level.service";
 })
 export class LevelComponent implements OnInit {
   GroundTypes: typeof GroundTypes = GroundTypes;
-  towerPositions: number[][];
+  towerPositions: Tile[][];
   level: Tile[] = [];
 
   constructor(private levelService: LevelService) {

@@ -3,6 +3,9 @@ import {Tile} from "./model/level/Tile";
 import {GroundTypes} from "./model/level/GroundTypes";
 import {Building} from "./model/level/Building";
 import {Ground} from "./model/level/Ground";
+import {Node} from "../pathing/Node";
+import {Unit} from "./model/units/Unit";
+import {UnitType} from "./model/units/UnitType";
 
 @Injectable()
 export class LevelService {
@@ -57,6 +60,13 @@ export class LevelService {
     return this.level;
   }
 
+  getWidthInTiles(): number {
+    return this.level.length;
+  }
+  getHeightInTiles(): number {
+    return this.level[0].length;
+  }
+
   private sizeFactor = 32;
 
   private createGround(i: number, j: number, groundType: GroundTypes) {
@@ -65,6 +75,22 @@ export class LevelService {
     ground.setX(j * this.sizeFactor);
     ground.setWidth(this.sizeFactor);
     ground.setHeight(this.sizeFactor);
+    switch (groundType) {
+      case GroundTypes.Grass:
+        ground.setBlocked(false);
+        break;
+      case GroundTypes.Rock:
+        ground.setBlocked(true);
+        break;
+      case GroundTypes.Wall:
+        ground.setBlocked(true);
+        break;
+      case GroundTypes.Water:
+        ground.setBlocked(true);
+        break;
+
+
+    }
     ground.type = groundType;
     this.level[i][j] = ground;
   }
@@ -81,5 +107,43 @@ export class LevelService {
     building.height = building.h + "px";
     building.type = GroundTypes.Building;
     this.level[i][j] = building;
+  }
+
+  cost(unit: Unit, xp: number, yp: number) : number{
+    if (this.level[xp] != null) {
+      let tile = this.level[xp][yp];
+      switch (tile.type) {
+        case GroundTypes.Grass:
+          return 1;
+        case GroundTypes.Wall:
+          switch (unit.type) {
+            case UnitType.Archer:
+              return 10;
+            case UnitType.Infantry:
+              return 8;
+            case UnitType.Artillery:
+              return 20;
+          }
+        case GroundTypes.Rock:
+          switch (unit.type) {
+            case UnitType.Archer:
+              return 8;
+            case UnitType.Infantry:
+              return 7;
+            case UnitType.Artillery:
+              return 12;
+          }
+        case GroundTypes.Water:
+          switch (unit.type) {
+            case UnitType.Archer:
+              return 8;
+            case UnitType.Infantry:
+              return 8;
+            case UnitType.Artillery:
+              return 2000;
+          }
+      }
+    }
+    return 2;
   }
 }
