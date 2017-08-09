@@ -70,7 +70,7 @@ export class LevelService {
     return this.level[0].length;
   }
 
-  private sizeFactor = 32;
+  public sizeFactor = 32;
 
   private createGround(i: number, j: number, groundType: GroundTypes) {
     const ground = new Ground();
