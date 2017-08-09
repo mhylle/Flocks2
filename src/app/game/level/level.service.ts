@@ -3,7 +3,6 @@ import {Tile} from "./model/level/Tile";
 import {GroundTypes} from "./model/level/GroundTypes";
 import {Building} from "./model/level/Building";
 import {Ground} from "./model/level/Ground";
-import {Node} from "../pathing/Node";
 import {Unit} from "./model/units/Unit";
 import {UnitType} from "./model/units/UnitType";
 
@@ -12,6 +11,8 @@ export class LevelService {
 
   towerPositions: number[][];
   level: Tile[][];
+
+  visited: boolean[][];
 
   constructor() {
     this.towerPositions = [
@@ -38,6 +39,7 @@ export class LevelService {
 
     for (let i = 0; i < this.towerPositions.length; i++) {
       this.level[i] = [];
+      this.visited[i] =[];
       let row = this.towerPositions[i];
       for (let j = 0; j < row.length; j++) {
         if (this.towerPositions[i][j] === 0) {
@@ -52,8 +54,12 @@ export class LevelService {
         if (this.towerPositions[i][j] === 3) {
           this.createGround(i, j, GroundTypes.Rock);
         }
+        this.visited[i][j] = false;
       }
     }
+
+
+
   }
 
   getLevel(): Tile[][] {
@@ -145,5 +151,9 @@ export class LevelService {
       }
     }
     return 2;
+  }
+
+  pathFinderVisited(xp: number, yp: number) {
+    this.visited[xp][yp] = true;
   }
 }

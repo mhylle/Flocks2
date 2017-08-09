@@ -5,6 +5,7 @@ import {LevelService} from "../level/level.service";
 import {Node} from "./Node";
 import {Unit} from "../level/model/units/Unit";
 
+
 @Injectable()
 export class PathfinderService {
 
@@ -52,11 +53,40 @@ export class PathfinderService {
 
           if (this.isValidLocation(source, xp,yp)) {
             let nextStepCost = currentNode.cost + this.getMovementCost(unit, xp,yp);
+            let neighbour = this.nodes[xp][yp];
+            this.levelService.pathFinderVisited(xp,yp);
+            if (nextStepCost < neighbour.cost) {
+              let openIndex = this.open.indexOf(neighbour, 0);
+              if (openIndex> -1){
+                this.open.splice(openIndex, 1);
+              }
+              let closedIndex = this.closed.indexOf(neighbour, 0);
+              if (closedIndex> -1){
+                this.closed.splice(closedIndex, 1);
+              }
+            }
+
+            if (this.open.indexOf(neighbour, 0) == -1 && this.closed.indexOf(neighbour, 0)) {
+              neighbour.cost = nextStepCost;
+              maxDepth = Math.max(maxDepth, neighbour.setParent(currentNode));
+              this.open.push(neighbour);
+            }
           }
         }
       }
     }
-    return null;
+    if (this.nodes[target.x][target.y] == null) {
+      return null;
+    }
+
+    let path = new Path();
+    let theTarget = this.nodes[target.x][target.y];
+    while (theTarget != this.nodes[source.x][source.y]) {
+      path.prependStep(theTarget.x, theTarget.y);
+      theTarget = theTarget.parent;
+    }
+    path.prependStep(source.x, source.y);
+    return path;
   }
 
   private getMovementCost(unit: Unit, xp: number, yp: number): number {
