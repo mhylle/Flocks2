@@ -1,6 +1,6 @@
 import {Behaviour} from "./behaviour";
 
-export class FindTargerBehaviour implements Behaviour {
+export class FindTargetBehaviour implements Behaviour {
   update() {
   }
 
