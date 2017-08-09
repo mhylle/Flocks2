@@ -13,12 +13,14 @@ export interface Unit {
   width: string;
   height: string;
 
-  setX(x: number);
+  setX(x: number) : void;
 
-  setY(y: number);
+  setY(y: number): void;
 
-  setWidth(w: number);
+  setWidth(w: number): void;
 
-  setHeight(h: number);
+  setHeight(h: number): void;
+
+  update(): void;
 
 }

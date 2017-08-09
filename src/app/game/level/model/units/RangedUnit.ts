@@ -34,4 +34,7 @@ export class RangedUnit implements Unit {
     this.height = h + "px";
   }
 
+  update(): void {
+  }
+
 }

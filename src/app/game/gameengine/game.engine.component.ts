@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {RangedUnit} from "../level/model/units/RangedUnit";
 import {UnitType} from "../level/model/units/UnitType";
 import {Unit} from "../level/model/units/Unit";
@@ -14,8 +14,9 @@ export class GameEngineComponent implements OnInit {
   private sizeFactor = 32;
   units: Unit[] = [];
   timer: Observable<number>;
+
   constructor() {
-    this.timer = TimerObservable.create(0,25);
+    this.timer = TimerObservable.create(0, 25);
   }
 
   ngOnInit() {
@@ -25,8 +26,8 @@ export class GameEngineComponent implements OnInit {
     let archer = new RangedUnit();
     archer.setX(2 * this.sizeFactor);
     archer.setY(2 * this.sizeFactor);
-    archer.setWidth(1* this.sizeFactor);
-    archer.setHeight(1* this.sizeFactor);
+    archer.setWidth(1 * this.sizeFactor);
+    archer.setHeight(1 * this.sizeFactor);
     archer.type = UnitType.Archer;
     this.units.push(archer);
   }
@@ -34,9 +35,15 @@ export class GameEngineComponent implements OnInit {
   startGame() {
     this.createUnits();
     this.timer.subscribe(t => {
+      this.tick();
       this.updateUnitPositions();
-    })
+    });
+  }
 
+  private tick() {
+    for (let i = 0; i < this.units.length; i++) {
+      this.units[i].update();
+    }
   }
 
   private updateUnitPositions() {
