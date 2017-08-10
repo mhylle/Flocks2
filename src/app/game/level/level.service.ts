@@ -5,14 +5,17 @@ import {Building} from "./model/level/Building";
 import {Ground} from "./model/level/Ground";
 import {Unit} from "./model/units/Unit";
 import {UnitType} from "./model/units/UnitType";
+import {Subject} from "rxjs/Subject";
 
 @Injectable()
 export class LevelService {
 
   towerPositions: number[][];
   level: Tile[][] = [];
-
   visited: boolean[][] = [];
+
+  private tileClickedSource = new Subject<Tile>();
+  tileClickedSource$ = this.tileClickedSource.asObservable();
 
   constructor() {
     this.towerPositions = [
@@ -155,5 +158,9 @@ export class LevelService {
 
   pathFinderVisited(xp: number, yp: number) {
     this.visited[xp][yp] = true;
+  }
+
+  tileClicked(tile: Tile) {
+    this.tileClickedSource.next(tile);
   }
 }

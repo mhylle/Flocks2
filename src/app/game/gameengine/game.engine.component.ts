@@ -5,6 +5,7 @@ import {Unit} from "../level/model/units/Unit";
 import {TimerObservable} from "rxjs/observable/TimerObservable";
 import {Observable} from "rxjs/Observable";
 import {LevelService} from "../level/level.service";
+import {Tile} from "../level/model/level/Tile";
 
 @Component({
   selector: 'gameengine',
@@ -18,24 +19,27 @@ export class GameEngineComponent implements OnInit {
 
   constructor(private levelService: LevelService) {
     this.timer = TimerObservable.create(0, 25);
+    this.levelService.tileClickedSource$.subscribe(tile => {
+      this.createUnit(tile);
+    });
   }
 
-  ngOnInit() {
-  }
-
-  createUnits() {
-    let heightInTiles = this.levelService.getHeightInTiles();
+  private createUnit(tile: Tile) {
     let archer = new RangedUnit();
-    archer.setX(2 * this.sizeFactor);
-    archer.setY((heightInTiles - 2) * this.sizeFactor);
+    archer.setX(tile.x );
+    archer.setY(tile.y);
     archer.setWidth(1 * this.sizeFactor);
     archer.setHeight(1 * this.sizeFactor);
     archer.type = UnitType.Archer;
     this.units.push(archer);
   }
 
+  ngOnInit() {
+  }
+
+
+
   startGame() {
-    this.createUnits();
     this.timer.subscribe(t => {
       this.tick();
       this.updateUnitPositions();

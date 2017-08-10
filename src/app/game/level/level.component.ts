@@ -32,6 +32,7 @@ export class LevelComponent implements OnInit {
   }
 
   onTileClicked(tile: Tile) {
+    this.levelService.tileClicked(tile);
     console.log("Clicked on tile: " + tile.x / this.levelService.sizeFactor + ", " + tile.y / this.levelService.sizeFactor);
     this.tileClicked.emit(tile);
   }
