@@ -39,3 +39,7 @@
 .selectedTile {
   border: solid 2px black;
 }
+
+.pathed {
+  filter: brightness(20%);
+}

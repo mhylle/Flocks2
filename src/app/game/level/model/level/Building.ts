@@ -17,6 +17,7 @@ export class Building implements Tile {
   width: string;
   height: string;
   private selected: boolean;
+  private pathed: boolean;
 
   setX(x: number) {
     this.x = x;
@@ -47,6 +48,14 @@ export class Building implements Tile {
 
   isSelected() : boolean {
     return this.selected;
+  }
+
+  setPathed(pathed: boolean)  {
+    this.pathed = pathed;
+  }
+
+  isPath() : boolean {
+    return this.pathed;
   }
 
 

@@ -8,6 +8,7 @@ import {LevelService} from "../level/level.service";
 import {Tile} from "../level/model/level/Tile";
 import {GroundTypes} from "../level/model/level/GroundTypes";
 import {PathfinderService} from "../pathing/pathfinder.service";
+import {Path} from "../pathing/Path";
 
 @Component({
   selector: 'gameengine',
@@ -19,24 +20,28 @@ export class GameEngineComponent implements OnInit {
   units: Unit[] = [];
   timer: Observable<number>;
   selectedUnit: Unit;
+  path: Path;
 
   UnitType: typeof UnitType = UnitType;
   constructor(private levelService: LevelService, private pathFinderService: PathfinderService) {
     this.timer = TimerObservable.create(0, 25);
 
     this.levelService.tileClickedSource$.subscribe(tile => {
-      console.log('TileType: ' + tile.type);
+      console.log('TileType: ' + tile.type + " selectedUnit: " + this.selectedUnit);
       if (tile.type == GroundTypes.Building && this.selectedUnit != null) {
         tile.setSelected(true);
         this.selectedUnit.setTarget(tile);
+        console.log('returning, with building and selected unit');
         return;
       }
       if (this.selectedUnit != null) {
+        console.log('nullifying unit')
         this.selectedUnit = null;
       }
 
       for (let i = 0; i < this.units.length; i++) {
         let unit = this.units[i];
+        console.log("Unit: (" + unit.x + ", " + unit.y + ") Tile: (" + tile.x + ", " + tile.y + ")");
         if (unit.x == tile.x && unit.y == tile.y) {
           this.selectedUnit = unit;
         }
@@ -66,10 +71,10 @@ export class GameEngineComponent implements OnInit {
     for (let i = 0; i < this.units.length; i++) {
       let unit = this.units[i];
       if (unit.getTarget() != null) {
-        let path = this.pathFinderService.findPath(unit, this.levelService.level[unit.x][unit.y], unit.getTarget());
+        this.path = this.pathFinderService.findPath(unit, this.levelService.level[unit.x][unit.y], unit.getTarget());
       }
-
     }
+
     this.timer.subscribe(t => {
       this.tick();
       this.updateUnitPositions();
@@ -79,6 +84,19 @@ export class GameEngineComponent implements OnInit {
   private tick() {
     for (let i = 0; i < this.units.length; i++) {
       this.units[i].update();
+    }
+
+    let level = this.levelService.level;
+    for (let i = 0; i < level.length; i++) {
+      let row = level[i];
+      for (let j = 0; j < row.length; j++) {
+        let tile = row[j];
+        if (this.path.contains(i,j)) {
+          tile.setPathed(true);
+        } else {
+          tile.setPathed(false);
+        }
+      }
     }
   }
 

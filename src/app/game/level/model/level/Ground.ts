@@ -15,6 +15,7 @@ export class Ground implements Tile {
   width: string;
   height: string;
   private blocked: boolean;
+  private pathed: boolean;
 
   setX(x: number) {
     this.x = x;
@@ -52,4 +53,13 @@ export class Ground implements Tile {
   isSelected(): boolean {
     return false;
   }
+
+  setPathed(pathed: boolean)  {
+    this.pathed = pathed;
+  }
+
+  isPath() : boolean {
+    return this.pathed;
+  }
+
 }

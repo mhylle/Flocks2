@@ -26,5 +26,8 @@ export interface Tile {
   setSelected(selected: boolean): void;
   isSelected(): boolean;
 
+  setPathed(pathed: boolean);
+  isPath(): boolean;
+
 
 }
