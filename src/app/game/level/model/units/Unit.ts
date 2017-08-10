@@ -27,4 +27,7 @@ export interface Unit {
   setTarget(tile: Tile): void;
   getTarget(): Tile;
 
+  setSelected(selected: boolean): void;
+  isSelected(): boolean;
+
 }

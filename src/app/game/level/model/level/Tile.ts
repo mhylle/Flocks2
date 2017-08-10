@@ -23,5 +23,8 @@ export interface Tile {
 
   isBlocked(): boolean;
 
+  setSelected(selected: boolean): void;
+  isSelected(): boolean;
+
 
 }

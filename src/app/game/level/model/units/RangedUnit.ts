@@ -14,6 +14,7 @@ export class RangedUnit implements Unit {
   width: string;
   height: string;
   private target: Tile;
+  private selected: boolean;
 
   setX(x: number) {
     this.x = x;
@@ -46,6 +47,12 @@ export class RangedUnit implements Unit {
   getTarget() : Tile {
     return this.target;
   }
+  
+  setSelected(selected: boolean): void {
+    this.selected = selected;
+  }
 
-
+  isSelected(): boolean {
+    return this.selected;
+  }
 }

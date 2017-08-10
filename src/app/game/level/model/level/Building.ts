@@ -16,6 +16,7 @@ export class Building implements Tile {
   posY: string;
   width: string;
   height: string;
+  private selected: boolean;
 
   setX(x: number) {
     this.x = x;
@@ -38,6 +39,14 @@ export class Building implements Tile {
   }
   isBlocked(): boolean {
     return true;
+  }
+
+  setSelected(selected: boolean) : void {
+    this.selected = selected;
+  }
+
+  isSelected() : boolean {
+    return this.selected;
   }
 
 

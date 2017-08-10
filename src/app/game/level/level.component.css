@@ -36,3 +36,6 @@
   border: solid 1px lightblue;
 
 }
+.selectedTile {
+  border: solid 2px black;
+}

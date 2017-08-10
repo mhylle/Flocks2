@@ -43,4 +43,13 @@ export class Ground implements Tile {
   setBlocked(blocked: boolean) {
     this.blocked = blocked;
   }
+
+  setSelected(selected: boolean): void {
+    // purposefully ignored, cannot select ground.
+  }
+
+
+  isSelected(): boolean {
+    return false;
+  }
 }

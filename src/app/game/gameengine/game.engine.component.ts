@@ -20,11 +20,14 @@ export class GameEngineComponent implements OnInit {
   timer: Observable<number>;
   selectedUnit: Unit;
 
+  UnitType: typeof UnitType = UnitType;
   constructor(private levelService: LevelService, private pathFinderService: PathfinderService) {
     this.timer = TimerObservable.create(0, 25);
 
     this.levelService.tileClickedSource$.subscribe(tile => {
+      console.log('TileType: ' + tile.type);
       if (tile.type == GroundTypes.Building && this.selectedUnit != null) {
+        tile.setSelected(true);
         this.selectedUnit.setTarget(tile);
         return;
       }
@@ -39,7 +42,7 @@ export class GameEngineComponent implements OnInit {
         }
       }
       if (this.selectedUnit != null) {
-
+        this.selectedUnit.setSelected(true);
       } else {
         this.createUnit(tile);
       }

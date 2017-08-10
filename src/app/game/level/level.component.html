@@ -1,5 +1,5 @@
 <div *ngFor="let tile of level" style="position: absolute;margin:0;padding:0"
-     [ngClass]="GroundTypes[tile.type]"
+     [ngClass]="[tile.isSelected() ? 'selectedTile' : GroundTypes[tile.type]]"
      [style.width]="tile.width"
      [style.height]="tile.height"
      [style.left]="tile.posX"

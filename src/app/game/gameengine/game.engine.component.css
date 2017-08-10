@@ -4,3 +4,11 @@
   /*width: 20px;*/
   /*height: 20px;*/
 }
+
+selectedUnit {
+  background-color: orange;
+}
+
+.Archer {
+  background-color: saddlebrown;
+}
