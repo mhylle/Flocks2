@@ -5,10 +5,11 @@ import {Unit} from "../level/model/units/Unit";
 import {TimerObservable} from "rxjs/observable/TimerObservable";
 import {Observable} from "rxjs/Observable";
 import {LevelService} from "../level/level.service";
-import {Tile} from "../level/model/level/Tile";
-import {GroundTypes} from "../level/model/level/GroundTypes";
-import {PathfinderService} from "../pathing/pathfinder.service";
+import {Subscription} from "rxjs/Subscription";
 import {Path} from "../pathing/Path";
+import {GroundTypes} from "../level/model/level/GroundTypes";
+import {Tile} from "../level/model/level/Tile";
+import {PathfinderService} from "../pathing/pathfinder.service";
 
 @Component({
   selector: 'gameengine',
@@ -21,12 +22,15 @@ export class GameEngineComponent implements OnInit {
   timer: Observable<number>;
   selectedUnit: Unit;
   path: Path;
+  private tileClickedSubscription: Subscription;
+  private unitClickedSubscription: Subscription;
 
   UnitType: typeof UnitType = UnitType;
+
   constructor(private levelService: LevelService, private pathFinderService: PathfinderService) {
     this.timer = TimerObservable.create(0, 25);
 
-    this.levelService.tileClickedSource$.subscribe(tile => {
+    this.tileClickedSubscription = this.levelService.tileClickedSource$.subscribe(tile => {
       console.log('TileType: ' + tile.type + " selectedUnit: " + this.selectedUnit);
       if (tile.type == GroundTypes.Building && this.selectedUnit != null) {
         tile.setSelected(true);
@@ -34,27 +38,34 @@ export class GameEngineComponent implements OnInit {
         console.log('returning, with building and selected unit');
         return;
       }
+
+      // if (this.selectedUnit != null) {
+      //   this.selectedUnit.setSelected(true);
+      // } else {
+        this.createUnit(tile);
+      // }
+    });
+
+    this.unitClickedSubscription = this.levelService.unitClickedSource$.subscribe(unit => {
       if (this.selectedUnit != null) {
-        console.log('nullifying unit')
         this.selectedUnit = null;
       }
 
       for (let i = 0; i < this.units.length; i++) {
         let unit = this.units[i];
-        console.log("Unit: (" + unit.x + ", " + unit.y + ") Tile: (" + tile.x + ", " + tile.y + ")");
-        if (unit.x == tile.x && unit.y == tile.y) {
+        console.log("Unit: (" + unit.x + ", " + unit.y + ") Tile: (" + unit.x + ", " + unit.y + ")");
+        if (unit.x == unit.x && unit.y == unit.y) {
           this.selectedUnit = unit;
         }
       }
       if (this.selectedUnit != null) {
         this.selectedUnit.setSelected(true);
-      } else {
-        this.createUnit(tile);
       }
-    });
+    })
   }
 
   private createUnit(tile: Tile) {
+    console.log("creating unit");
     let archer = new RangedUnit();
     archer.setX(tile.x);
     archer.setY(tile.y);
@@ -70,8 +81,12 @@ export class GameEngineComponent implements OnInit {
   startGame() {
     for (let i = 0; i < this.units.length; i++) {
       let unit = this.units[i];
-      if (unit.getTarget() != null) {
-        this.path = this.pathFinderService.findPath(unit, this.levelService.level[unit.x][unit.y], unit.getTarget());
+      let target = unit.getTarget();
+      if (target != null) {
+        let x = unit.x;
+        let y = unit.y;
+        let tile = this.levelService.level[x/this.levelService.sizeFactor][y/this.levelService.sizeFactor];
+        this.path = this.pathFinderService.findPath(unit, tile, target);
       }
     }
 
@@ -91,7 +106,7 @@ export class GameEngineComponent implements OnInit {
       let row = level[i];
       for (let j = 0; j < row.length; j++) {
         let tile = row[j];
-        if (this.path.contains(i,j)) {
+        if (this.path.contains(i, j)) {
           tile.setPathed(true);
         } else {
           tile.setPathed(false);
@@ -105,5 +120,10 @@ export class GameEngineComponent implements OnInit {
       let unit = this.units[i];
       unit.setY(unit.y - 1);
     }
+  }
+
+  onUnitClicked(unit: Unit) {
+    this.levelService.unitClicked(unit);
+    console.log("Clicked on tile: " + unit.x / this.levelService.sizeFactor + ", " + unit.y / this.levelService.sizeFactor);
   }
 }

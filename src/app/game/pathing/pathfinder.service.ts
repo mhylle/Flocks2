@@ -19,19 +19,27 @@ export class PathfinderService {
 
   findPath(unit: Unit, source: Tile, target: Tile): Path {
     let level = this.levelService.getLevel();
-    if (level[target.x][target.y].isBlocked()) {
+    this.nodes = [];
+    for (let i = 0; i< this.levelService.getWidthInTiles(); i++) {
+      this.nodes[i] = [];
+      for (let j = 0; j < this.levelService.getWidthInTiles(); j++) {
+        this.nodes[i][j] = new Node();
+      }
+    }
+    let tile = level[target.x / this.levelService.sizeFactor][target.y/ this.levelService.sizeFactor];
+    if (tile.isBlocked()) {
       return null;
     }
-    this.nodes[source.x][source.y].cost = 0;
+    this.nodes[source.x / this.levelService.sizeFactor][source.y / this.levelService.sizeFactor].cost = 0;
     this.open = [];
     this.closed = [];
-    this.nodes[source.x][source.y].parent = null;
+    this.nodes[source.x / this.levelService.sizeFactor][source.y / this.levelService.sizeFactor].parent = null;
 
     let maxDepth: number = 0;
 
     while ((maxDepth < this.maxSearchDistance) && this.open.length != 0) {
       let currentNode = this.open[0];
-      if (currentNode == this.nodes[target.x][target.y]) {
+      if (currentNode == this.nodes[target.x / this.levelService.sizeFactor][target.y / this.levelService.sizeFactor]) {
         break;
       }
 
@@ -75,17 +83,17 @@ export class PathfinderService {
         }
       }
     }
-    if (this.nodes[target.x][target.y] == null) {
+    if (this.nodes[target.x / this.levelService.sizeFactor][target.y / this.levelService.sizeFactor] == null) {
       return null;
     }
 
     let path = new Path();
-    let theTarget = this.nodes[target.x][target.y];
-    while (theTarget != this.nodes[source.x][source.y]) {
-      path.prependStep(theTarget.x, theTarget.y);
+    let theTarget = this.nodes[target.x / this.levelService.sizeFactor][target.y / this.levelService.sizeFactor];
+    while (theTarget != this.nodes[source.x / this.levelService.sizeFactor][source.y / this.levelService.sizeFactor]) {
+      path.prependStep(theTarget.x / this.levelService.sizeFactor, theTarget.y / this.levelService.sizeFactor);
       theTarget = theTarget.parent;
     }
-    path.prependStep(source.x, source.y);
+    path.prependStep(source.x / this.levelService.sizeFactor, source.y / this.levelService.sizeFactor);
     return path;
   }
 

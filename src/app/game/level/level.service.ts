@@ -16,6 +16,8 @@ export class LevelService {
 
   private tileClickedSource = new Subject<Tile>();
   tileClickedSource$ = this.tileClickedSource.asObservable();
+  private unitClickedSource = new Subject<Unit>();
+  unitClickedSource$ = this.unitClickedSource.asObservable();
 
   constructor() {
     this.towerPositions = [
@@ -162,5 +164,9 @@ export class LevelService {
 
   tileClicked(tile: Tile) {
     this.tileClickedSource.next(tile);
+  }
+
+  unitClicked(unit: Unit) {
+    this.unitClickedSource.next(unit);
   }
 }

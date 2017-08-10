@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Tile} from './model/level/Tile';
 import {GroundTypes} from "./model/level/GroundTypes";
 import {LevelService} from "./level.service";
@@ -14,9 +14,6 @@ export class LevelComponent implements OnInit {
 
   level: Tile[] = [];
 
-  @Output()
-  tileClicked: EventEmitter<Tile> = new EventEmitter<Tile>();
-
   constructor(private levelService: LevelService) {
     let towerPositions = levelService.getLevel();
     for (let i = 0; i < towerPositions.length; i++) {
@@ -28,13 +25,11 @@ export class LevelComponent implements OnInit {
   }
 
   ngOnInit() {
-
   }
 
   onTileClicked(tile: Tile) {
     this.levelService.tileClicked(tile);
     console.log("Clicked on tile: " + tile.x / this.levelService.sizeFactor + ", " + tile.y / this.levelService.sizeFactor);
-    this.tileClicked.emit(tile);
   }
 
 
