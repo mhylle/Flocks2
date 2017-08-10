@@ -1,4 +1,5 @@
 import {UnitType} from "./UnitType";
+import {Tile} from "../level/Tile";
 
 export interface Unit {
   type: UnitType;
@@ -22,5 +23,8 @@ export interface Unit {
   setHeight(h: number): void;
 
   update(): void;
+
+  setTarget(tile: Tile): void;
+  getTarget(): Tile;
 
 }

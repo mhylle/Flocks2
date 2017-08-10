@@ -6,6 +6,8 @@ import {TimerObservable} from "rxjs/observable/TimerObservable";
 import {Observable} from "rxjs/Observable";
 import {LevelService} from "../level/level.service";
 import {Tile} from "../level/model/level/Tile";
+import {GroundTypes} from "../level/model/level/GroundTypes";
+import {PathfinderService} from "../pathing/pathfinder.service";
 
 @Component({
   selector: 'gameengine',
@@ -16,17 +18,37 @@ export class GameEngineComponent implements OnInit {
   private sizeFactor = 32;
   units: Unit[] = [];
   timer: Observable<number>;
+  selectedUnit: Unit;
 
-  constructor(private levelService: LevelService) {
+  constructor(private levelService: LevelService, private pathFinderService: PathfinderService) {
     this.timer = TimerObservable.create(0, 25);
+
     this.levelService.tileClickedSource$.subscribe(tile => {
-      this.createUnit(tile);
+      if (tile.type == GroundTypes.Building && this.selectedUnit != null) {
+        this.selectedUnit.setTarget(tile);
+        return;
+      }
+      if (this.selectedUnit != null) {
+        this.selectedUnit = null;
+      }
+
+      for (let i = 0; i < this.units.length; i++) {
+        let unit = this.units[i];
+        if (unit.x == tile.x && unit.y == tile.y) {
+          this.selectedUnit = unit;
+        }
+      }
+      if (this.selectedUnit != null) {
+
+      } else {
+        this.createUnit(tile);
+      }
     });
   }
 
   private createUnit(tile: Tile) {
     let archer = new RangedUnit();
-    archer.setX(tile.x );
+    archer.setX(tile.x);
     archer.setY(tile.y);
     archer.setWidth(1 * this.sizeFactor);
     archer.setHeight(1 * this.sizeFactor);
@@ -37,9 +59,14 @@ export class GameEngineComponent implements OnInit {
   ngOnInit() {
   }
 
-
-
   startGame() {
+    for (let i = 0; i < this.units.length; i++) {
+      let unit = this.units[i];
+      if (unit.getTarget() != null) {
+        let path = this.pathFinderService.findPath(unit, this.levelService.level[unit.x][unit.y], unit.getTarget());
+      }
+
+    }
     this.timer.subscribe(t => {
       this.tick();
       this.updateUnitPositions();

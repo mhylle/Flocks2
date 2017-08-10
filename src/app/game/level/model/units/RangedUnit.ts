@@ -1,5 +1,6 @@
 import {Unit} from "./Unit";
 import {UnitType} from "./UnitType";
+import {Tile} from "../level/Tile";
 
 export class RangedUnit implements Unit {
 
@@ -12,6 +13,7 @@ export class RangedUnit implements Unit {
   h: number;
   width: string;
   height: string;
+  private target: Tile;
 
   setX(x: number) {
     this.x = x;
@@ -36,5 +38,14 @@ export class RangedUnit implements Unit {
 
   update(): void {
   }
+
+  setTarget(target: Tile): void {
+    this.target = target;
+  }
+
+  getTarget() : Tile {
+    return this.target;
+  }
+
 
 }
