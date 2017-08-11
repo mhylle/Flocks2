@@ -5,7 +5,7 @@ import {LevelService} from "./level.service";
 
 
 @Component({
-  selector: 'app-level',
+  selector: 'level',
   templateUrl: './level.component.html',
   styleUrls: ['./level.component.css']
 })
