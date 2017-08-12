@@ -1,5 +1,6 @@
 import {Tile} from "./Tile";
 import {GroundTypes} from "./GroundTypes";
+import * as globals from '../../../globals';
 
 export class Ground implements Tile {
 
@@ -19,22 +20,22 @@ export class Ground implements Tile {
 
   setX(x: number) {
     this.x = x;
-    this.posX = x + "px";
+    this.posX = x * globals.sizeFactor + "px";
   }
 
   setY(y: number) {
     this.y = y;
-    this.posY = y + "px";
+    this.posY = y * globals.sizeFactor + "px";
   }
 
   setWidth(w: number) {
     this.w = w;
-    this.width = w + "px";
+    this.width = w * globals.sizeFactor + "px";
   }
 
   setHeight(h: number) {
     this.h = h;
-    this.height = h + "px";
+    this.height = h * globals.sizeFactor + "px";
   }
 
   isBlocked(): boolean {
@@ -54,11 +55,11 @@ export class Ground implements Tile {
     return false;
   }
 
-  setPathed(pathed: boolean)  {
+  setPathed(pathed: boolean) {
     this.pathed = pathed;
   }
 
-  isPath() : boolean {
+  isPath(): boolean {
     return this.pathed;
   }
 

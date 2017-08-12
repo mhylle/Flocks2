@@ -1,7 +1,7 @@
 import {Step} from "./Step";
 
 export class Path {
-  steps: Step[];
+  steps: Step[] = [];
 
 
   getX(index: number) : number {

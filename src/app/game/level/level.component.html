@@ -3,6 +3,8 @@
      [style.width]="tile.width"
      [style.height]="tile.height"
      [style.left]="tile.posX"
-     [style.top]="tile.posY" (click)="onTileClicked(tile)">
+     [style.top]="tile.posY"
+     (click)="onTileClicked(tile)">
+  {{tile.x}},{{tile.y}}
 </div>
 

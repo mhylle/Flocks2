@@ -19,26 +19,26 @@ export class PathfinderService {
   findPath(unit: Unit, target: Tile): Path {
     let level = this.levelService.getLevel();
     this.nodes = [];
-    for (let i = 0; i< this.levelService.getWidthInTiles(); i++) {
+    for (let i = 0; i < this.levelService.getWidthInTiles(); i++) {
       this.nodes[i] = [];
       for (let j = 0; j < this.levelService.getWidthInTiles(); j++) {
-        this.nodes[i][j] = new Node(i,j);
+        this.nodes[i][j] = new Node(i, j);
       }
     }
-    let tile = level[target.x / this.levelService.sizeFactor][target.y/ this.levelService.sizeFactor];
+    let tile = level[target.x][target.y];
     if (tile.isBlocked()) {
       return null;
     }
-    this.nodes[unit.x / this.levelService.sizeFactor][unit.y / this.levelService.sizeFactor].cost = 0;
+    this.nodes[unit.x][unit.y].cost = 0;
     this.open = [];
     this.closed = [];
-    this.nodes[unit.x / this.levelService.sizeFactor][unit.y / this.levelService.sizeFactor].parent = null;
+    this.nodes[unit.x][unit.y].parent = null;
 
     let maxDepth: number = 0;
-    this.open.push(this.nodes[unit.x/ this.levelService.sizeFactor][unit.y/ this.levelService.sizeFactor]);
+    this.open.push(this.nodes[unit.x][unit.y]);
     while ((maxDepth < this.maxSearchDistance) && this.open.length != 0) {
       let currentNode = this.open[0];
-      if (currentNode == this.nodes[target.x / this.levelService.sizeFactor][target.y / this.levelService.sizeFactor]) {
+      if (currentNode == this.nodes[target.x][target.y]) {
         break;
       }
 
@@ -58,17 +58,17 @@ export class PathfinderService {
           let xp = x + currentNode.x;
           let yp = y + currentNode.y;
 
-          if (this.isValidLocation(unit, xp-1,yp-1)) {
-            let nextStepCost = currentNode.cost + this.getMovementCost(unit, xp,yp);
+          if (this.isValidLocation(unit, xp, yp)) {
+            let nextStepCost = currentNode.cost + this.getMovementCost(unit, xp, yp);
             let neighbour = this.nodes[xp][yp];
-            this.levelService.pathFinderVisited(xp,yp);
+            this.levelService.pathFinderVisited(xp, yp);
             if (nextStepCost < neighbour.cost) {
               let openIndex = this.open.indexOf(neighbour, 0);
-              if (openIndex> -1){
+              if (openIndex > -1) {
                 this.open.splice(openIndex, 1);
               }
               let closedIndex = this.closed.indexOf(neighbour, 0);
-              if (closedIndex> -1){
+              if (closedIndex > -1) {
                 this.closed.splice(closedIndex, 1);
               }
             }
@@ -82,29 +82,29 @@ export class PathfinderService {
         }
       }
     }
-    if (this.nodes[target.x / this.levelService.sizeFactor][target.y / this.levelService.sizeFactor] == null) {
+    if (this.nodes[target.x][target.y] == null) {
       return null;
     }
 
     let path = new Path();
-    let theTarget = this.nodes[target.x / this.levelService.sizeFactor][target.y / this.levelService.sizeFactor];
-    while (theTarget != this.nodes[unit.x / this.levelService.sizeFactor][unit.y / this.levelService.sizeFactor]) {
-      path.prependStep(theTarget.x / this.levelService.sizeFactor, theTarget.y / this.levelService.sizeFactor);
+    let theTarget = this.nodes[target.x][target.y];
+    while (theTarget != this.nodes[unit.x][unit.y]) {
+      path.prependStep(theTarget.x, theTarget.y);
       theTarget = theTarget.parent;
     }
-    path.prependStep(unit.x / this.levelService.sizeFactor, unit.y / this.levelService.sizeFactor);
+    path.prependStep(unit.x, unit.y);
     return path;
   }
 
   private getMovementCost(unit: Unit, xp: number, yp: number): number {
-    return this.levelService.cost(unit, xp,yp);
+    return this.levelService.cost(unit, xp, yp);
   }
 
-  isValidLocation(unit: Unit, x: number, y: number) : boolean {
+  isValidLocation(unit: Unit, y: number, x: number): boolean {
     let level = this.levelService.getLevel();
-    let invalid = (x<0) ||(y<0)|| (x>this.levelService.getWidthInTiles()) ||(y > this.levelService.getHeightInTiles());
-    if ((!invalid) && ((unit.x/ this.levelService.sizeFactor != x) ||(unit.y / this.levelService.sizeFactor!= y))) {
-      invalid = (level[x][y] == null) ? true : level[x][y].isBlocked();
+    let invalid = (x < 0) || (y < 0) || (x > this.levelService.getWidthInTiles()) || (y > this.levelService.getHeightInTiles());
+    if ((!invalid) && ((unit.x != x) || (unit.y != y))) {
+      invalid = level[x][y].isBlocked();
     }
     return !invalid;
   }

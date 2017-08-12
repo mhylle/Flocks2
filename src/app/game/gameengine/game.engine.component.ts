@@ -69,8 +69,8 @@ export class GameEngineComponent implements OnInit {
     let archer = new RangedUnit();
     archer.setX(tile.x);
     archer.setY(tile.y);
-    archer.setWidth(1 * this.sizeFactor);
-    archer.setHeight(1 * this.sizeFactor);
+    archer.setWidth(1);
+    archer.setHeight(1);
     archer.type = UnitType.Archer;
     this.units.push(archer);
   }
@@ -83,8 +83,6 @@ export class GameEngineComponent implements OnInit {
       let unit = this.units[i];
       let target = unit.getTarget();
       if (target != null) {
-        let x = unit.x;
-        let y = unit.y;
         this.path = this.pathFinderService.findPath(unit, target);
       }
     }
@@ -123,6 +121,6 @@ export class GameEngineComponent implements OnInit {
 
   onUnitClicked(unit: Unit) {
     this.levelService.unitClicked(unit);
-    console.log("Clicked on tile: " + unit.x / this.levelService.sizeFactor + ", " + unit.y / this.levelService.sizeFactor);
+    console.log("Clicked on tile: " + unit.x + ", " + unit.y );
   }
 }

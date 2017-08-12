@@ -12,7 +12,7 @@ export interface Tile {
   height: string;
 
   type: GroundTypes;
-
+  
   setX(x: number);
 
   setY(y: number);

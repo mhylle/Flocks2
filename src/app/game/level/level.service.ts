@@ -41,24 +41,24 @@ export class LevelService {
       [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     ];
-    for (let i = 0; i < this.towerPositions.length; i++) {
-      this.level[i] = [];
-      this.visited[i] = [];
-      let row = this.towerPositions[i];
-      for (let j = 0; j < row.length; j++) {
-        if (this.towerPositions[i][j] === 0) {
-          this.createGround(i, j, GroundTypes.Grass);
+    for (let y = 0; y < this.towerPositions.length; y++) {
+      this.level[y] = [];
+      this.visited[y] = [];
+      let row = this.towerPositions[y];
+      for (let x = 0; x < row.length; x++) {
+        if (this.towerPositions[y][x] === 0) {
+          this.createGround(y, x, GroundTypes.Grass);
         }
-        if (this.towerPositions[i][j] === 1) {
-          this.createBuilding(i, j);
+        if (this.towerPositions[y][x] === 1) {
+          this.createBuilding(y, x);
         }
-        if (this.towerPositions[i][j] === 2) {
-          this.createGround(i, j, GroundTypes.Water);
+        if (this.towerPositions[y][x] === 2) {
+          this.createGround(y, x, GroundTypes.Water);
         }
-        if (this.towerPositions[i][j] === 3) {
-          this.createGround(i, j, GroundTypes.Rock);
+        if (this.towerPositions[y][x] === 3) {
+          this.createGround(y, x, GroundTypes.Rock);
         }
-        this.visited[i][j] = false;
+        this.visited[y][x] = false;
       }
     }
   }
@@ -75,14 +75,14 @@ export class LevelService {
     return this.level[0].length;
   }
 
-  public sizeFactor = 32;
 
-  private createGround(i: number, j: number, groundType: GroundTypes) {
+
+  private createGround(x: number, y: number, groundType: GroundTypes) {
     const ground = new Ground();
-    ground.setY(i * this.sizeFactor);
-    ground.setX(j * this.sizeFactor);
-    ground.setWidth(this.sizeFactor);
-    ground.setHeight(this.sizeFactor);
+    ground.setX(y);
+    ground.setY(x);
+    ground.setWidth(1);
+    ground.setHeight(1);
     switch (groundType) {
       case GroundTypes.Grass:
         ground.setBlocked(false);
@@ -100,24 +100,20 @@ export class LevelService {
 
     }
     ground.type = groundType;
-    this.level[i][j] = ground;
+    this.level[x][y] = ground;
   }
 
-  private createBuilding(i: number, j: number) {
+  private createBuilding(x: number, y: number) {
     const building = new Building();
-    building.setY(i * this.sizeFactor);
-    building.setX(j * this.sizeFactor);
-    building.setWidth(this.sizeFactor);
-    building.setHeight(this.sizeFactor);
-    building.posX = building.x + "px";
-    building.posY = building.y + "px";
-    building.width = building.w + "px";
-    building.height = building.h + "px";
+    building.setY(x);
+    building.setX(y);
+    building.setWidth(1);
+    building.setHeight(1);
     building.type = GroundTypes.Building;
-    this.level[i][j] = building;
+    this.level[x][y] = building;
   }
 
-  cost(unit: Unit, xp: number, yp: number): number {
+  cost(unit: Unit, yp: number, xp: number): number {
     if (this.level[xp] != null) {
       let tile = this.level[xp][yp];
       switch (tile.type) {

@@ -1,6 +1,7 @@
 import {Unit} from "./Unit";
 import {UnitType} from "./UnitType";
 import {Tile} from "../level/Tile";
+import * as globals from '../../../globals';
 
 export class RangedUnit implements Unit {
 
@@ -18,23 +19,23 @@ export class RangedUnit implements Unit {
 
   setX(x: number) {
     this.x = x;
-    this.posX = x + "px";
+    this.posX = x * globals.sizeFactor + "px";
   }
 
   setY(y: number) {
     this.y = y;
-    this.posY = y + "px";
+    this.posY = y * globals.sizeFactor + "px";
 
   }
 
   setWidth(w: number) {
     this.w = w;
-    this.width = w + "px";
+    this.width = w * globals.sizeFactor + "px";
   }
 
   setHeight(h: number) {
     this.h = h;
-    this.height = h + "px";
+    this.height = h * globals.sizeFactor + "px";
   }
 
   update(): void {
@@ -44,10 +45,10 @@ export class RangedUnit implements Unit {
     this.target = target;
   }
 
-  getTarget() : Tile {
+  getTarget(): Tile {
     return this.target;
   }
-  
+
   setSelected(selected: boolean): void {
     this.selected = selected;
   }
