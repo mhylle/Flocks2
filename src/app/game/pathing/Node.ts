@@ -5,6 +5,11 @@ export class Node {
   parent: Node;
   depth: number;
 
+  constructor(x: number, y: number) {
+    this.x = x;
+    this.y = y;
+  }
+
   compareTo(other: Node) : number {
     return other.cost - this.cost;
   }

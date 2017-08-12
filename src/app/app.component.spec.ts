@@ -14,7 +14,7 @@ describe('AppComponent', () => {
         LevelComponent,
         GameEngineComponent
       ],
-      providers:[{provide: LevelService, PathfinderService}]
+      providers:[ {provide: LevelService},{provide: PathfinderService}]
     }).compileComponents();
   }));
 

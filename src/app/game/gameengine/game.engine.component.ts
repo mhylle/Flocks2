@@ -85,8 +85,7 @@ export class GameEngineComponent implements OnInit {
       if (target != null) {
         let x = unit.x;
         let y = unit.y;
-        let tile = this.levelService.level[x/this.levelService.sizeFactor][y/this.levelService.sizeFactor];
-        this.path = this.pathFinderService.findPath(unit, tile, target);
+        this.path = this.pathFinderService.findPath(unit, target);
       }
     }
 
