@@ -21,7 +21,7 @@ export class PathfinderService {
     this.nodes = [];
     for (let i = 0; i < this.levelService.getWidthInTiles(); i++) {
       this.nodes[i] = [];
-      for (let j = 0; j < this.levelService.getWidthInTiles(); j++) {
+      for (let j = 0; j < this.levelService.getHeightInTiles(); j++) {
         this.nodes[i][j] = new Node(i, j);
       }
     }
@@ -29,16 +29,16 @@ export class PathfinderService {
     if (tile.isBlocked()) {
       return null;
     }
-    this.nodes[unit.y][unit.x].cost = 0;
+    this.nodes[unit.x][unit.y].cost = 0;
     this.open = [];
     this.closed = [];
-    this.nodes[unit.y][unit.x].parent = null;
+    this.nodes[unit.x][unit.y].parent = null;
 
     let maxDepth: number = 0;
-    this.open.push(this.nodes[unit.y][unit.x]);
+    this.open.push(this.nodes[unit.x][unit.y]);
     while ((maxDepth < this.maxSearchDistance) && this.open.length != 0) {
       let currentNode = this.open[0];
-      if (currentNode == this.nodes[target.y][target.x]) {
+      if (currentNode == this.nodes[target.x][target.y]) {
         break;
       }
 
@@ -58,10 +58,10 @@ export class PathfinderService {
           let xp = x + currentNode.x;
           let yp = y + currentNode.y;
 
-          if (this.isValidLocation(unit, yp, xp)) {
-            let nextStepCost = currentNode.cost + this.getMovementCost(unit, yp, xp);
-            let neighbour = this.nodes[yp][xp];
-            this.levelService.pathFinderVisited(yp, xp);
+          if (this.isValidLocation(unit, xp, yp)) {
+            let nextStepCost = currentNode.cost + this.getMovementCost(unit, xp, yp);
+            let neighbour = this.nodes[xp][yp];
+            this.levelService.pathFinderVisited(xp, yp);
             if (nextStepCost < neighbour.cost) {
               let openIndex = this.open.indexOf(neighbour, 0);
               if (openIndex > -1) {
@@ -100,11 +100,11 @@ export class PathfinderService {
     return this.levelService.cost(unit, xp, yp);
   }
 
-  isValidLocation(unit: Unit, y: number, x: number): boolean {
+  isValidLocation(unit: Unit, x: number, y: number): boolean {
     let level = this.levelService.getLevel();
     let invalid = (x < 0) || (y < 0) || (x > this.levelService.getWidthInTiles()) || (y > this.levelService.getHeightInTiles());
     if ((!invalid) && ((unit.x != x) || (unit.y != y))) {
-      invalid = level[x][y].isBlocked();
+      invalid = level[y][x].isBlocked();
     }
     return !invalid;
   }

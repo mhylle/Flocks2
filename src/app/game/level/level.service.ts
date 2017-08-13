@@ -47,16 +47,16 @@ export class LevelService {
       let row = this.towerPositions[y];
       for (let x = 0; x < row.length; x++) {
         if (this.towerPositions[y][x] === 0) {
-          this.createGround(y, x, GroundTypes.Grass);
+          this.createGround(x, y, GroundTypes.Grass);
         }
         if (this.towerPositions[y][x] === 1) {
-          this.createBuilding(y, x);
+          this.createBuilding(x, y);
         }
         if (this.towerPositions[y][x] === 2) {
-          this.createGround(y, x, GroundTypes.Water);
+          this.createGround(x, y, GroundTypes.Water);
         }
         if (this.towerPositions[y][x] === 3) {
-          this.createGround(y, x, GroundTypes.Rock);
+          this.createGround(x, y, GroundTypes.Rock);
         }
         this.visited[y][x] = false;
       }
@@ -77,7 +77,7 @@ export class LevelService {
 
 
 
-  private createGround(y: number, x: number, groundType: GroundTypes) {
+  private createGround(x: number, y: number, groundType: GroundTypes) {
     const ground = new Ground();
     ground.setX(x);
     ground.setY(y);
@@ -103,7 +103,7 @@ export class LevelService {
     this.level[y][x] = ground;
   }
 
-  private createBuilding(y: number, x: number) {
+  private createBuilding(x: number, y: number) {
     const building = new Building();
     building.setX(x);
     building.setY(y);
@@ -113,7 +113,7 @@ export class LevelService {
     this.level[y][x] = building;
   }
 
-  cost(unit: Unit, yp: number, xp: number): number {
+  cost(unit: Unit, xp: number, yp: number): number {
     if (this.level[yp] != null) {
       let tile = this.level[yp][xp];
       switch (tile.type) {
