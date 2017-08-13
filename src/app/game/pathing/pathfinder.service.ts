@@ -10,7 +10,7 @@ export class PathfinderService {
 
   private open: Node[] = [];
   private closed: Node[] = [];
-  maxSearchDistance: number = 1;
+  maxSearchDistance: number = 500;
   nodes: Node[][];
 
   constructor(private levelService: LevelService) {
@@ -73,10 +73,16 @@ export class PathfinderService {
               }
             }
 
-            if (this.open.indexOf(neighbour, 0) == -1 && this.closed.indexOf(neighbour, 0)) {
+            if ((this.open.indexOf(neighbour, 0) == -1) && (this.closed.indexOf(neighbour, 0) == -1)) {
               neighbour.cost = nextStepCost;
-              maxDepth = Math.max(maxDepth, neighbour.setParent(currentNode));
+
+              // add heuristic cost..
+              let parentDepth = neighbour.setParent(currentNode);
+              maxDepth = Math.max(maxDepth, parentDepth);
               this.open.push(neighbour);
+              this.open.sort((o1, o2) => {
+                return o1.compareTo(o2);
+              })
             }
           }
         }
@@ -88,7 +94,7 @@ export class PathfinderService {
 
     let path = new Path();
     let theTarget = this.nodes[target.x][target.y];
-    while (theTarget != this.nodes[unit.x][unit.y]) {
+    while (theTarget != null && theTarget != this.nodes[unit.x][unit.y]) {
       path.prependStep(theTarget.x, theTarget.y);
       theTarget = theTarget.parent;
     }

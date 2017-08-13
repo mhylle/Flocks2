@@ -8,6 +8,8 @@ export class Node {
   constructor(x: number, y: number) {
     this.x = x;
     this.y = y;
+    this.depth = 0;
+    this.cost = 0;
   }
 
   compareTo(other: Node) : number {
