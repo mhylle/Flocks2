@@ -68,19 +68,19 @@ export class LevelService {
   }
 
   getWidthInTiles(): number {
-    return this.level.length;
-  }
-
-  getHeightInTiles(): number {
     return this.level[0].length;
   }
 
+  getHeightInTiles(): number {
+    return this.level.length;
+  }
 
 
-  private createGround(x: number, y: number, groundType: GroundTypes) {
+
+  private createGround(y: number, x: number, groundType: GroundTypes) {
     const ground = new Ground();
-    ground.setX(y);
-    ground.setY(x);
+    ground.setX(x);
+    ground.setY(y);
     ground.setWidth(1);
     ground.setHeight(1);
     switch (groundType) {
@@ -100,22 +100,22 @@ export class LevelService {
 
     }
     ground.type = groundType;
-    this.level[x][y] = ground;
+    this.level[y][x] = ground;
   }
 
-  private createBuilding(x: number, y: number) {
+  private createBuilding(y: number, x: number) {
     const building = new Building();
-    building.setY(x);
-    building.setX(y);
+    building.setX(x);
+    building.setY(y);
     building.setWidth(1);
     building.setHeight(1);
     building.type = GroundTypes.Building;
-    this.level[x][y] = building;
+    this.level[y][x] = building;
   }
 
   cost(unit: Unit, yp: number, xp: number): number {
-    if (this.level[xp] != null) {
-      let tile = this.level[xp][yp];
+    if (this.level[yp] != null) {
+      let tile = this.level[yp][xp];
       switch (tile.type) {
         case GroundTypes.Grass:
           return 1;
@@ -154,7 +154,7 @@ export class LevelService {
     return 2;
   }
 
-  pathFinderVisited(xp: number, yp: number) {
+  pathFinderVisited(yp: number, xp: number) {
     this.visited[xp][yp] = true;
   }
 

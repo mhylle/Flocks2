@@ -29,16 +29,16 @@ export class PathfinderService {
     if (tile.isBlocked()) {
       return null;
     }
-    this.nodes[unit.x][unit.y].cost = 0;
+    this.nodes[unit.y][unit.x].cost = 0;
     this.open = [];
     this.closed = [];
-    this.nodes[unit.x][unit.y].parent = null;
+    this.nodes[unit.y][unit.x].parent = null;
 
     let maxDepth: number = 0;
-    this.open.push(this.nodes[unit.x][unit.y]);
+    this.open.push(this.nodes[unit.y][unit.x]);
     while ((maxDepth < this.maxSearchDistance) && this.open.length != 0) {
       let currentNode = this.open[0];
-      if (currentNode == this.nodes[target.x][target.y]) {
+      if (currentNode == this.nodes[target.y][target.x]) {
         break;
       }
 
@@ -58,10 +58,10 @@ export class PathfinderService {
           let xp = x + currentNode.x;
           let yp = y + currentNode.y;
 
-          if (this.isValidLocation(unit, xp, yp)) {
-            let nextStepCost = currentNode.cost + this.getMovementCost(unit, xp, yp);
-            let neighbour = this.nodes[xp][yp];
-            this.levelService.pathFinderVisited(xp, yp);
+          if (this.isValidLocation(unit, yp, xp)) {
+            let nextStepCost = currentNode.cost + this.getMovementCost(unit, yp, xp);
+            let neighbour = this.nodes[yp][xp];
+            this.levelService.pathFinderVisited(yp, xp);
             if (nextStepCost < neighbour.cost) {
               let openIndex = this.open.indexOf(neighbour, 0);
               if (openIndex > -1) {
