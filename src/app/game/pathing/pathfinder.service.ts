@@ -108,7 +108,7 @@ export class PathfinderService {
 
   isValidLocation(unit: Unit, x: number, y: number): boolean {
     let level = this.levelService.getLevel();
-    let invalid = (x < 0) || (y < 0) || (x > this.levelService.getWidthInTiles()) || (y > this.levelService.getHeightInTiles());
+    let invalid = (x < 0) || (y < 0) || (x > (this.levelService.getWidthInTiles() - 1)) || (y > (this.levelService.getHeightInTiles() - 1));
     if ((!invalid) && ((unit.x != x) || (unit.y != y))) {
       invalid = level[y][x].isBlocked();
     }
