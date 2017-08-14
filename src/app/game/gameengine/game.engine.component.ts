@@ -103,7 +103,7 @@ export class GameEngineComponent implements OnInit {
       let row = level[i];
       for (let j = 0; j < row.length; j++) {
         let tile = row[j];
-        if (this.path.contains(i, j)) {
+        if (this.path.contains(j, i)) {
           tile.setPathed(true);
         } else {
           tile.setPathed(false);
