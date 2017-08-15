@@ -12,3 +12,8 @@
 <div style="position: relative">
   <button (click)="startGame()">Start Game!</button>
 </div>
+Number Of Nodes: {{_nodes?.length}}
+<div *ngFor="let node of _nodes" >
+  {{node.x}}, {{node.y}}
+</div>
+

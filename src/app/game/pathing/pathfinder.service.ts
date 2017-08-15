@@ -16,6 +16,9 @@ export class PathfinderService {
   constructor(private levelService: LevelService) {
   }
 
+  getNodes() : Node[][] {
+    return this.nodes;
+  }
   findPath(unit: Unit, target: Tile): Path {
     let level = this.levelService.getLevel();
     this.nodes = [];

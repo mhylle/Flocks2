@@ -10,6 +10,7 @@ import {Path} from "../pathing/Path";
 import {GroundTypes} from "../level/model/level/GroundTypes";
 import {Tile} from "../level/model/level/Tile";
 import {PathfinderService} from "../pathing/pathfinder.service";
+import {Node} from "../pathing/Node";
 
 @Component({
   selector: 'gameengine',
@@ -42,7 +43,7 @@ export class GameEngineComponent implements OnInit {
       // if (this.selectedUnit != null) {
       //   this.selectedUnit.setSelected(true);
       // } else {
-        this.createUnit(tile);
+      this.createUnit(tile);
       // }
     });
 
@@ -78,12 +79,15 @@ export class GameEngineComponent implements OnInit {
   ngOnInit() {
   }
 
+  _nodes: Node[][];
+
   startGame() {
     for (let i = 0; i < this.units.length; i++) {
       let unit = this.units[i];
       let target = unit.getTarget();
       if (target != null) {
         this.path = this.pathFinderService.findPath(unit, target);
+        this._nodes = this.pathFinderService.getNodes();
       }
     }
 
@@ -121,6 +125,6 @@ export class GameEngineComponent implements OnInit {
 
   onUnitClicked(unit: Unit) {
     this.levelService.unitClicked(unit);
-    console.log("Clicked on tile: " + unit.x + ", " + unit.y );
+    console.log("Clicked on tile: " + unit.x + ", " + unit.y);
   }
 }
