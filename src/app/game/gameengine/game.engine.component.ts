@@ -10,7 +10,7 @@ import {Path} from "../pathing/Path";
 import {GroundTypes} from "../level/model/level/GroundTypes";
 import {Tile} from "../level/model/level/Tile";
 import {PathfinderService} from "../pathing/pathfinder.service";
-import {Node} from "../pathing/Node";
+import {MapNode} from "../pathing/MapNode";
 
 @Component({
   selector: 'gameengine',
@@ -18,7 +18,6 @@ import {Node} from "../pathing/Node";
   styleUrls: ['./game.engine.component.css']
 })
 export class GameEngineComponent implements OnInit {
-  private sizeFactor = 32;
   units: Unit[] = [];
   timer: Observable<number>;
   selectedUnit: Unit;
@@ -79,7 +78,7 @@ export class GameEngineComponent implements OnInit {
   ngOnInit() {
   }
 
-  _nodes: Node[][];
+  mapNodes: MapNode[][];
 
   startGame() {
     for (let i = 0; i < this.units.length; i++) {
@@ -87,7 +86,7 @@ export class GameEngineComponent implements OnInit {
       let target = unit.getTarget();
       if (target != null) {
         this.path = this.pathFinderService.findPath(unit, target);
-        this._nodes = this.pathFinderService.getNodes();
+        this.mapNodes = this.pathFinderService.getNodes();
       }
     }
 

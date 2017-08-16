@@ -13,7 +13,9 @@
   <button (click)="startGame()">Start Game!</button>
 </div>
 Number Of Nodes: {{_nodes?.length}}
-<div *ngFor="let node of _nodes" >
-  {{node.x}}, {{node.y}}
+<div *ngFor="let theNodes of mapNodes" >
+  <div *ngFor="let node of theNodes">
+    {{node.x}}, {{node.y}}: {{node.cost}}
+  </div>
 </div>
 

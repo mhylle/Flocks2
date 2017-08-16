@@ -2,21 +2,21 @@ import {Injectable} from '@angular/core';
 import {Path} from "./Path";
 import {Tile} from "../level/model/level/Tile";
 import {LevelService} from "../level/level.service";
-import {Node} from "./Node";
+import {MapNode} from "./MapNode";
 import {Unit} from "../level/model/units/Unit";
 
 @Injectable()
 export class PathfinderService {
 
-  private open: Node[] = [];
-  private closed: Node[] = [];
+  private open: MapNode[] = [];
+  private closed: MapNode[] = [];
   maxSearchDistance: number = 500;
-  nodes: Node[][];
+  nodes: MapNode[][];
 
   constructor(private levelService: LevelService) {
   }
 
-  getNodes() : Node[][] {
+  getNodes() : MapNode[][] {
     return this.nodes;
   }
   findPath(unit: Unit, target: Tile): Path {
@@ -25,7 +25,7 @@ export class PathfinderService {
     for (let i = 0; i < this.levelService.getWidthInTiles(); i++) {
       this.nodes[i] = [];
       for (let j = 0; j < this.levelService.getHeightInTiles(); j++) {
-        this.nodes[i][j] = new Node(i, j);
+        this.nodes[i][j] = new MapNode(i, j);
       }
     }
     let tile = level[target.x][target.y];
@@ -97,11 +97,17 @@ export class PathfinderService {
 
     let path = new Path();
     let theTarget = this.nodes[target.x][target.y];
-    while (theTarget != null && theTarget != this.nodes[unit.x][unit.y]) {
+    console.log("Initial target: " + theTarget.x + ", " + theTarget.y);
+    let mapNode = this.nodes[unit.x][unit.y];
+    console.log("MapNode: " + mapNode.x + ", " + mapNode.y);
+    while (theTarget != null && theTarget != mapNode) {
+      console.log("Prepending: " + theTarget.x + ", " + theTarget.y)
       path.prependStep(theTarget.x, theTarget.y);
+      console.log("Targets Parent: " + theTarget.parent);
       theTarget = theTarget.parent;
     }
     path.prependStep(unit.x, unit.y);
+    console.log("Path has: " + path.steps.length + " steps");
     return path;
   }
 

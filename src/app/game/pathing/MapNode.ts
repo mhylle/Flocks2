@@ -1,8 +1,8 @@
-export class Node {
+export class MapNode {
   x: number;
   y: number;
   cost: number;
-  parent: Node;
+  parent: MapNode;
   depth: number;
 
   constructor(x: number, y: number) {
@@ -12,12 +12,12 @@ export class Node {
     this.cost = 0;
   }
 
-  compareTo(other: Node) : number {
+  compareTo(other: MapNode): number {
     return other.cost - this.cost;
   }
 
-  setParent(parent: Node) : number {
-    this.depth = parent.depth +1;
+  setParent(parent: MapNode): number {
+    this.depth = parent.depth + 1;
     this.parent = parent;
     return this.depth;
 
