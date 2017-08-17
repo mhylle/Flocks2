@@ -4,6 +4,7 @@ export class MapNode {
   cost: number;
   parent: MapNode;
   depth: number;
+  heuristic: number;
 
   constructor(x: number, y: number) {
     this.x = x;
@@ -13,7 +14,18 @@ export class MapNode {
   }
 
   compareTo(other: MapNode): number {
-    return other.cost - this.cost;
+    let f = this.heuristic + this.cost;
+    let of = other.cost - this.cost;
+    if (f < of ) {
+      return -1;
+    }
+    if (f > of) {
+      return 1;
+    }
+
+    if (f == of) {
+      return 0;
+    }
   }
 
   setParent(parent: MapNode): number {

@@ -4,6 +4,7 @@ import {Tile} from "../level/model/level/Tile";
 import {LevelService} from "../level/level.service";
 import {MapNode} from "./MapNode";
 import {Unit} from "../level/model/units/Unit";
+import {HeuristicService} from "./heuristic.service";
 
 @Injectable()
 export class PathfinderService {
@@ -13,7 +14,7 @@ export class PathfinderService {
   maxSearchDistance: number = 500;
   nodes: MapNode[][];
 
-  constructor(private levelService: LevelService) {
+  constructor(private levelService: LevelService, private heuristicService: HeuristicService) {
   }
 
   getNodes() : MapNode[][] {
@@ -79,7 +80,7 @@ export class PathfinderService {
             if ((this.open.indexOf(neighbour, 0) == -1) && (this.closed.indexOf(neighbour, 0) == -1)) {
               neighbour.cost = nextStepCost;
 
-              // add heuristic cost..
+              neighbour.heuristic = this.heuristicService.getCost(currentNode.x, currentNode.y, xp, yp);
               let parentDepth = neighbour.setParent(currentNode);
               maxDepth = Math.max(maxDepth, parentDepth);
               this.open.push(neighbour);
