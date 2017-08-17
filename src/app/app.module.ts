@@ -8,6 +8,7 @@ import {LevelComponent} from './game/level/level.component';
 import {GameEngineComponent} from './game/gameengine/game.engine.component';
 import {LevelService} from "./game/level/level.service";
 import {PathfinderService} from "./game/pathing/pathfinder.service";
+import {HeuristicService} from "./game/pathing/heuristic.service";
 
 @NgModule({
   declarations: [
@@ -20,7 +21,7 @@ import {PathfinderService} from "./game/pathing/pathfinder.service";
     FormsModule,
     HttpModule
   ],
-  providers: [LevelService, PathfinderService],
+  providers: [LevelService, PathfinderService, HeuristicService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

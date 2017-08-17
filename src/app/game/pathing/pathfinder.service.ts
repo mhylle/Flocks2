@@ -17,9 +17,10 @@ export class PathfinderService {
   constructor(private levelService: LevelService, private heuristicService: HeuristicService) {
   }
 
-  getNodes() : MapNode[][] {
+  getNodes(): MapNode[][] {
     return this.nodes;
   }
+
   findPath(unit: Unit, target: Tile): Path {
     let level = this.levelService.getLevel();
     this.nodes = [];
@@ -43,6 +44,7 @@ export class PathfinderService {
     while ((maxDepth < this.maxSearchDistance) && this.open.length != 0) {
       let currentNode = this.open[0];
       if (currentNode == this.nodes[target.x][target.y]) {
+        console.log("found target");
         break;
       }
 
@@ -62,11 +64,12 @@ export class PathfinderService {
           let xp = x + currentNode.x;
           let yp = y + currentNode.y;
 
-          if (this.isValidLocation(unit, xp, yp)) {
+          if (this.isValidLocation(unit, xp, yp, target.x, target.y)) {
             let nextStepCost = currentNode.cost + this.getMovementCost(unit, xp, yp);
             let neighbour = this.nodes[xp][yp];
             this.levelService.pathFinderVisited(xp, yp);
             if (nextStepCost < neighbour.cost) {
+              console.log("cost was less (" + nextStepCost + " vs " + neighbour.cost);
               let openIndex = this.open.indexOf(neighbour, 0);
               if (openIndex > -1) {
                 this.open.splice(openIndex, 1);
@@ -84,9 +87,9 @@ export class PathfinderService {
               let parentDepth = neighbour.setParent(currentNode);
               maxDepth = Math.max(maxDepth, parentDepth);
               this.open.push(neighbour);
-              this.open.sort((o1, o2) => {
+              this.open = this.open.sort((o1, o2) => {
                 return o1.compareTo(o2);
-              })
+              });
             }
           }
         }
@@ -116,8 +119,11 @@ export class PathfinderService {
     return this.levelService.cost(unit, xp, yp);
   }
 
-  isValidLocation(unit: Unit, x: number, y: number): boolean {
+  isValidLocation(unit: Unit, x: number, y: number, tx: number, ty: number): boolean {
     let level = this.levelService.getLevel();
+    if (x == tx && y == ty) {
+      return true;
+    }
     let invalid = (x < 0) || (y < 0) || (x > (this.levelService.getWidthInTiles() - 1)) || (y > (this.levelService.getHeightInTiles() - 1));
     if ((!invalid) && ((unit.x != x) || (unit.y != y))) {
       invalid = level[y][x].isBlocked();
