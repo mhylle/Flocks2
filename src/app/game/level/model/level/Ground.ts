@@ -15,6 +15,7 @@ export class Ground implements Tile {
   posY: string;
   width: string;
   height: string;
+  cost: number;
   private blocked: boolean;
   private pathed: boolean;
 
@@ -63,4 +64,8 @@ export class Ground implements Tile {
     return this.pathed;
   }
 
+
+  setCost(cost: number): void {
+    this.cost = cost;
+  }
 }

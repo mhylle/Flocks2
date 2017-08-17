@@ -19,6 +19,7 @@ export class Building implements Tile {
   height: string;
   private selected: boolean;
   private pathed: boolean;
+  cost: number;
 
   setX(x: number) {
     this.x = x;
@@ -62,4 +63,7 @@ export class Building implements Tile {
   }
 
 
+  setCost(cost: number): void {
+    this.cost = cost;
+  }
 }

@@ -12,7 +12,7 @@ export interface Tile {
   height: string;
 
   type: GroundTypes;
-  
+  cost: number;
   setX(x: number);
 
   setY(y: number);
@@ -28,6 +28,8 @@ export interface Tile {
 
   setPathed(pathed: boolean);
   isPath(): boolean;
+
+  setCost(cost: number): void;
 
 
 }

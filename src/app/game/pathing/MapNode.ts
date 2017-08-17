@@ -17,10 +17,10 @@ export class MapNode {
     let f = this.heuristic + this.cost;
     let of = other.cost - this.cost;
     if (f < of ) {
-      return -1;
+      return 1;
     }
     if (f > of) {
-      return 1;
+      return -1;
     }
 
     if (f == of) {

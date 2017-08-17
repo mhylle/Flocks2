@@ -26,11 +26,11 @@ export class LevelService {
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 3, 0, 3, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [2, 0, 2, 2, 2, 2, 0, 0, 2, 2, 2, 2, 0, 2],
+      [0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0],
+      [0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0],
+      [2, 0, 2, 2, 2, 2, 3, 0, 2, 2, 2, 2, 0, 2],
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -75,8 +75,6 @@ export class LevelService {
     return this.level.length;
   }
 
-
-
   private createGround(x: number, y: number, groundType: GroundTypes) {
     const ground = new Ground();
     ground.setX(x);
@@ -113,45 +111,50 @@ export class LevelService {
     this.level[y][x] = building;
   }
 
-  cost(unit: Unit, xp: number, yp: number): number {
+  cost(unit: Unit, cx: number, cy: number, xp: number, yp: number): number {
+    let result = 1000000;
+    let isDiagonal = false;
     if (this.level[yp] != null) {
       let tile = this.level[yp][xp];
+      if (cx != xp && cy != yp) {
+        isDiagonal = true;
+      }
       switch (tile.type) {
         case GroundTypes.Grass:
-          return 1;
+          result = 1;
         case GroundTypes.Wall:
           switch (unit.type) {
             case UnitType.Archer:
-              return 10;
+              result =10;
             case UnitType.Infantry:
-              return 8;
+              result = 8;
             case UnitType.Artillery:
-              return 20;
+              result =20;
           }
-          return 12;
+          result =12;
         case GroundTypes.Rock:
           switch (unit.type) {
             case UnitType.Archer:
-              return 8;
+              result =8;
             case UnitType.Infantry:
-              return 7;
+              result = 7;
             case UnitType.Artillery:
-              return 12;
+              result =12;
           }
-          return 14;
+          result =14;
         case GroundTypes.Water:
           switch (unit.type) {
             case UnitType.Archer:
-              return 8;
+              result =8;
             case UnitType.Infantry:
-              return 8;
+              result = 8;
             case UnitType.Artillery:
-              return 2000;
+              result =2000;
           }
-          return 20;
+          result = 20;
       }
     }
-    return 2;
+    return result* (isDiagonal ? 1.2: 1);
   }
 
   pathFinderVisited(xp: number, yp: number) {

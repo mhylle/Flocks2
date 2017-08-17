@@ -65,11 +65,10 @@ export class PathfinderService {
           let yp = y + currentNode.y;
 
           if (this.isValidLocation(unit, xp, yp, target.x, target.y)) {
-            let nextStepCost = currentNode.cost + this.getMovementCost(unit, xp, yp);
+            let nextStepCost = currentNode.cost + this.getMovementCost(unit, currentNode.x, currentNode.y, xp, yp);
             let neighbour = this.nodes[xp][yp];
             this.levelService.pathFinderVisited(xp, yp);
             if (nextStepCost < neighbour.cost) {
-              console.log("cost was less (" + nextStepCost + " vs " + neighbour.cost);
               let openIndex = this.open.indexOf(neighbour, 0);
               if (openIndex > -1) {
                 this.open.splice(openIndex, 1);
@@ -82,7 +81,6 @@ export class PathfinderService {
 
             if ((this.open.indexOf(neighbour, 0) == -1) && (this.closed.indexOf(neighbour, 0) == -1)) {
               neighbour.cost = nextStepCost;
-
               neighbour.heuristic = this.heuristicService.getCost(currentNode.x, currentNode.y, xp, yp);
               let parentDepth = neighbour.setParent(currentNode);
               maxDepth = Math.max(maxDepth, parentDepth);
@@ -115,8 +113,8 @@ export class PathfinderService {
     return path;
   }
 
-  private getMovementCost(unit: Unit, xp: number, yp: number): number {
-    return this.levelService.cost(unit, xp, yp);
+  private getMovementCost(unit: Unit, cx: number, cy: number, xp: number, yp: number): number {
+    return this.levelService.cost(unit, cx, cy, xp, yp);
   }
 
   isValidLocation(unit: Unit, x: number, y: number, tx: number, ty: number): boolean {
