@@ -1,5 +1,6 @@
 import {UnitType} from "./UnitType";
 import {Tile} from "../level/Tile";
+import {Path} from "../../../pathing/Path";
 
 export interface Unit {
   type: UnitType;
@@ -29,5 +30,9 @@ export interface Unit {
 
   setSelected(selected: boolean): void;
   isSelected(): boolean;
+
+  setPath(path: Path): void;
+
+  getPath(): Path;
 
 }

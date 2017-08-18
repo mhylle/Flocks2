@@ -2,6 +2,7 @@ import {Unit} from "./Unit";
 import {UnitType} from "./UnitType";
 import {Tile} from "../level/Tile";
 import * as globals from '../../../globals';
+import {Path} from "../../../pathing/Path";
 
 export class RangedUnit implements Unit {
 
@@ -16,6 +17,9 @@ export class RangedUnit implements Unit {
   height: string;
   private target: Tile;
   private selected: boolean;
+  private path: Path;
+
+  private currentPathPosition: number = 0;
 
   setX(x: number) {
     this.x = x;
@@ -39,6 +43,14 @@ export class RangedUnit implements Unit {
   }
 
   update(): void {
+    if (this.path.steps.length >0) {
+      let step = this.path.steps[this.currentPathPosition];
+      if (step != null) {
+        this.setX(step.x);
+        this.setY(step.y);
+        this.currentPathPosition++;
+      }
+    }
   }
 
   setTarget(target: Tile): void {
@@ -55,5 +67,14 @@ export class RangedUnit implements Unit {
 
   isSelected(): boolean {
     return this.selected;
+  }
+
+
+  setPath(path: Path): void {
+    this.path = path;
+  }
+
+  getPath(): Path {
+    return this.path;
   }
 }

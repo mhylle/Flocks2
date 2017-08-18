@@ -28,7 +28,7 @@ export class GameEngineComponent implements OnInit {
   UnitType: typeof UnitType = UnitType;
 
   constructor(private levelService: LevelService, private pathFinderService: PathfinderService) {
-    this.timer = TimerObservable.create(0, 25);
+    this.timer = TimerObservable.create(0, 400);
 
     this.tileClickedSubscription = this.levelService.tileClickedSource$.subscribe(tile => {
       console.log('TileType: ' + tile.type + " selectedUnit: " + this.selectedUnit);
@@ -53,7 +53,6 @@ export class GameEngineComponent implements OnInit {
 
       for (let i = 0; i < this.units.length; i++) {
         let unit = this.units[i];
-        console.log("Unit: (" + unit.x + ", " + unit.y + ") Tile: (" + unit.x + ", " + unit.y + ")");
         if (unit.x == unit.x && unit.y == unit.y) {
           this.selectedUnit = unit;
         }
@@ -65,7 +64,6 @@ export class GameEngineComponent implements OnInit {
   }
 
   private createUnit(tile: Tile) {
-    console.log("creating unit");
     let archer = new RangedUnit();
     archer.setX(tile.x);
     archer.setY(tile.y);
@@ -85,46 +83,36 @@ export class GameEngineComponent implements OnInit {
       let unit = this.units[i];
       let target = unit.getTarget();
       if (target != null) {
-        this.path = this.pathFinderService.findPath(unit, target);
+        unit.setPath(this.pathFinderService.findPath(unit, target));
         this.mapNodes = this.pathFinderService.getNodes();
       }
     }
 
     this.timer.subscribe(t => {
       this.tick();
-      this.updateUnitPositions();
     });
   }
 
   private tick() {
-    for (let i = 0; i < this.units.length; i++) {
-      this.units[i].update();
-    }
-
     let level = this.levelService.level;
     for (let i = 0; i < level.length; i++) {
       let row = level[i];
       for (let j = 0; j < row.length; j++) {
         let tile = row[j];
-        tile.setCost(this.mapNodes[j][i].cost);
-        if (this.path != null && this.path.contains(j, i)) {
-          tile.setPathed(true);
-        } else {
-          tile.setPathed(false);
+        for (let k = 0; k < this.units.length; k++) {
+          let unit = this.units[k];
+          if (unit.getPath() != null && unit.getPath().contains(j, i)) {
+            tile.setPathed(true);
+          }
+          this.units[k].update();
         }
-      }
-    }
-  }
 
-  private updateUnitPositions() {
-    for (let i = 0; i < this.units.length; i++) {
-      let unit = this.units[i];
-      unit.setY(unit.y - 1);
+        tile.setCost(this.mapNodes[j][i].cost);
+      }
     }
   }
 
   onUnitClicked(unit: Unit) {
     this.levelService.unitClicked(unit);
-    console.log("Clicked on tile: " + unit.x + ", " + unit.y);
   }
 }
