@@ -44,7 +44,6 @@ export class PathfinderService {
     while ((maxDepth < this.maxSearchDistance) && this.open.length != 0) {
       let currentNode = this.open[0];
       if (currentNode == this.nodes[target.x][target.y]) {
-        console.log("found target");
         break;
       }
 
@@ -69,11 +68,11 @@ export class PathfinderService {
             let neighbour = this.nodes[xp][yp];
             this.levelService.pathFinderVisited(xp, yp);
             if (nextStepCost < neighbour.cost) {
-              let openIndex = this.open.indexOf(neighbour, 0);
+              let openIndex = this.open.indexOf(neighbour);
               if (openIndex > -1) {
                 this.open.splice(openIndex, 1);
               }
-              let closedIndex = this.closed.indexOf(neighbour, 0);
+              let closedIndex = this.closed.indexOf(neighbour);
               if (closedIndex > -1) {
                 this.closed.splice(closedIndex, 1);
               }
