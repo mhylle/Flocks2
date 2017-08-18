@@ -19,7 +19,7 @@ export class RangedUnit implements Unit {
   private selected: boolean;
   private path: Path;
 
-  private currentPathPosition: number = 0;
+  private name: string;
 
   setX(x: number) {
     this.x = x;
@@ -42,14 +42,14 @@ export class RangedUnit implements Unit {
     this.height = h * globals.sizeFactor + "px";
   }
 
-  update(): void {
-    if (this.path.steps.length >0) {
-      let step = this.path.steps[this.currentPathPosition];
+  update(iteration: number): void {
+    console.log("Updating: " + this.getName() + " iteration: " + iteration);
+    if (this.path != null && this.path.steps.length >0) {
+      let step = this.path.steps[iteration];
       if (step != null) {
         this.setX(step.x);
         this.setY(step.y);
         console.log("Update: setting x, y to "+ this.x + ", " + this.y);
-        this.currentPathPosition++;
       }
     }
   }
@@ -77,5 +77,13 @@ export class RangedUnit implements Unit {
 
   getPath(): Path {
     return this.path;
+  }
+
+  setName(name: string) {
+    this.name = name;
+  }
+
+  getName() : string {
+    return this.name;
   }
 }

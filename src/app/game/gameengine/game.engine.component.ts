@@ -6,7 +6,6 @@ import {TimerObservable} from "rxjs/observable/TimerObservable";
 import {Observable} from "rxjs/Observable";
 import {LevelService} from "../level/level.service";
 import {Subscription} from "rxjs/Subscription";
-import {Path} from "../pathing/Path";
 import {GroundTypes} from "../level/model/level/GroundTypes";
 import {Tile} from "../level/model/level/Tile";
 import {PathfinderService} from "../pathing/pathfinder.service";
@@ -21,29 +20,22 @@ export class GameEngineComponent implements OnInit {
   units: Unit[] = [];
   timer: Observable<number>;
   selectedUnit: Unit;
-  path: Path;
   private tileClickedSubscription: Subscription;
   private unitClickedSubscription: Subscription;
 
   UnitType: typeof UnitType = UnitType;
+  selectedUnitType: UnitType;
 
   constructor(private levelService: LevelService, private pathFinderService: PathfinderService) {
     this.timer = TimerObservable.create(0, 400);
 
     this.tileClickedSubscription = this.levelService.tileClickedSource$.subscribe(tile => {
-      console.log('TileType: ' + tile.type + " selectedUnit: " + this.selectedUnit);
-      if (tile.type == GroundTypes.Building && this.selectedUnit != null) {
+      if (tile.type == GroundTypes.Building && this.selectedUnit != null && this.selectedUnitType != null) {
         tile.setSelected(true);
         this.selectedUnit.setTarget(tile);
-        console.log('returning, with building and selected unit');
-        return;
+      } else {
+        this.createUnit(tile);
       }
-
-      // if (this.selectedUnit != null) {
-      //   this.selectedUnit.setSelected(true);
-      // } else {
-      this.createUnit(tile);
-      // }
     });
 
     this.unitClickedSubscription = this.levelService.unitClickedSource$.subscribe(unit => {
@@ -64,13 +56,22 @@ export class GameEngineComponent implements OnInit {
   }
 
   private createUnit(tile: Tile) {
-    let archer = new RangedUnit();
-    archer.setX(tile.x);
-    archer.setY(tile.y);
-    archer.setWidth(1);
-    archer.setHeight(1);
-    archer.type = UnitType.Archer;
-    this.units.push(archer);
+    let unit = new RangedUnit();
+    if (this.selectedUnitType == UnitType.Archer) {
+      unit.setName("A");
+    }
+    if (this.selectedUnitType == UnitType.Artillery) {
+      unit.setName("M");
+    }
+    if (this.selectedUnitType == UnitType.Infantry) {
+      unit.setName("I");
+    }
+    unit.setX(tile.x);
+    unit.setY(tile.y);
+    unit.setWidth(1);
+    unit.setHeight(1);
+    unit.type = this.selectedUnitType;
+    this.units.push(unit);
   }
 
   ngOnInit() {
@@ -79,14 +80,14 @@ export class GameEngineComponent implements OnInit {
   mapNodes: MapNode[][];
 
   startGame() {
-    for (let i = 0; i < this.units.length; i++) {
-      let unit = this.units[i];
-      let target = unit.getTarget();
-      if (target != null) {
-        unit.setPath(this.pathFinderService.findPath(unit, target));
-        this.mapNodes = this.pathFinderService.getNodes();
-      }
-    }
+    // for (let i = 0; i < this.units.length; i++) {
+    //   let unit = this.units[i];
+    //   let target = unit.getTarget();
+    //   if (target != null) {
+    //     unit.setPath(this.pathFinderService.findPath(unit, target));
+    //     this.mapNodes = this.pathFinderService.getNodes();
+    //   }
+    // }
 
     this.timer.subscribe(t => {
       this.tick();
@@ -95,25 +96,35 @@ export class GameEngineComponent implements OnInit {
 
   private tick() {
     for (let k = 0; k < this.units.length; k++) {
-      let level = this.levelService.level;
-      for (let i = 0; i < level.length; i++) {
-        let row = level[i];
-        for (let j = 0; j < row.length; j++) {
-          let tile = row[j];
-
-          let unit = this.units[k];
-          if (unit.getPath() != null && unit.getPath().contains(j, i)) {
-            tile.setPathed(true);
-          }
-
-          tile.setCost(this.mapNodes[j][i].cost);
-        }
+      let unit = this.units[k];
+      let target = unit.getTarget();
+      if (target != null) {
+        unit.setPath(this.pathFinderService.findPath(unit, target));
       }
-      this.units[k].update();
+      // let level = this.levelService.level;
+      // for (let i = 0; i < level.length; i++) {
+      //   let row = level[i];
+      //   for (let j = 0; j < row.length; j++) {
+      //     let tile = row[j];
+      //
+      //     let unit = this.units[k];
+      //     // if (unit.getPath() != null && unit.getPath().contains(j, i)) {
+      //     //   tile.setPathed(true);
+      //     // }
+      //     //
+      //     // tile.setCost(this.mapNodes[j][i].cost);
+      //   }
+      // }
+      // 0 is ourself?
+      unit.update(1);
     }
   }
 
   onUnitClicked(unit: Unit) {
     this.levelService.unitClicked(unit);
+  }
+
+  setUnitType(unitType: UnitType) {
+    this.selectedUnitType = unitType;
   }
 }

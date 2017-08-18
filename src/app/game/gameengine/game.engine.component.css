@@ -5,10 +5,37 @@
   /*height: 20px;*/
 }
 
-selectedUnit {
+.selectedUnit {
   background-color: orange;
 }
 
+
 .Archer {
   background-color: saddlebrown;
+  width: 32px;
+  height: 32px;
+}
+
+.Artillery {
+  background-color: cadetblue;
+  width: 32px;
+  height: 32px;
+}
+
+.Infantry {
+  background-color: darkolivegreen;
+  width: 32px;
+  height: 32px;
+}
+
+.unitSelector {
+  display: inline-block;
+  list-style: none;
+}
+
+.unitSelector li {
+  float: left;
+  padding: 2px;
+  margin: 2px;
+  border: solid 1px black;
 }

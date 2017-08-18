@@ -23,7 +23,7 @@ export interface Unit {
 
   setHeight(h: number): void;
 
-  update(): void;
+  update(iteration: number): void;
 
   setTarget(tile: Tile): void;
   getTarget(): Tile;
@@ -34,5 +34,9 @@ export interface Unit {
   setPath(path: Path): void;
 
   getPath(): Path;
+
+  setName(name: string);
+
+  getName(): string;
 
 }

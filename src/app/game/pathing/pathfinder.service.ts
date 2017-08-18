@@ -99,17 +99,13 @@ export class PathfinderService {
 
     let path = new Path();
     let theTarget = this.nodes[target.x][target.y];
-    console.log("Initial target: " + theTarget.x + ", " + theTarget.y);
     let mapNode = this.nodes[unit.x][unit.y];
-    console.log("MapNode: " + mapNode.x + ", " + mapNode.y);
+
     while (theTarget != null && theTarget != mapNode) {
-      console.log("Prepending: " + theTarget.x + ", " + theTarget.y)
       path.prependStep(theTarget.x, theTarget.y);
-      console.log("Targets Parent: " + theTarget.parent);
       theTarget = theTarget.parent;
     }
     path.prependStep(unit.x, unit.y);
-    console.log("Path has: " + path.steps.length + " steps");
     return path;
   }
 

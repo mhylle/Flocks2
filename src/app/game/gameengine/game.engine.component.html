@@ -6,16 +6,17 @@
        [style.height]="unit.height"
        [style.left]="unit.posX"
        [style.top]="unit.posY"
-  (click)="onUnitClicked(unit)">
+       (click)="onUnitClicked(unit)">
+    {{unit.getName()}}
   </div>
 </div>
+<ul class="unitSelector">
+  <li class="Archer" (click)="setUnitType(UnitType.Archer)">A</li>
+  <li class="Artillery" (click)="setUnitType(UnitType.Artillery)">M</li>
+  <li class="Infantry" (click)="setUnitType(UnitType.Infantry)">I</li>
+</ul>
+
 <div style="position: relative">
   <button (click)="startGame()">Start Game!</button>
-</div>
-Number Of Nodes: {{_nodes?.length}}
-<div *ngFor="let theNodes of mapNodes" >
-  <div *ngFor="let node of theNodes">
-    {{node.x}}, {{node.y}}: {{node.cost}}
-  </div>
 </div>
 

@@ -30,7 +30,6 @@ export class MapNode {
 
   setParent(parent: MapNode): number {
     this.depth = parent.depth + 1;
-    console.log("Node (" + this.x + ", " + this.y + ") now has parent (" + parent.x + ", " + parent.y);
     this.parent = parent;
     return this.depth;
 
