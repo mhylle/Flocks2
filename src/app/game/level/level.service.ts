@@ -122,39 +122,52 @@ export class LevelService {
       switch (tile.type) {
         case GroundTypes.Grass:
           result = 1;
+          break;
         case GroundTypes.Wall:
           switch (unit.type) {
             case UnitType.Archer:
-              result =10;
+              result = 10;
+              break;
             case UnitType.Infantry:
               result = 8;
+              break;
             case UnitType.Artillery:
-              result =20;
+              result = 20;
+              break;
           }
-          result =12;
+          result = 12;
+          break;
         case GroundTypes.Rock:
           switch (unit.type) {
             case UnitType.Archer:
-              result =8;
+              result = 8;
+              break;
             case UnitType.Infantry:
               result = 7;
+              break;
             case UnitType.Artillery:
-              result =12;
+              result = 12;
+              break;
           }
-          result =14;
+          result = 14;
+          break;
         case GroundTypes.Water:
           switch (unit.type) {
             case UnitType.Archer:
-              result =8;
+              result = 8;
+              break;
             case UnitType.Infantry:
               result = 8;
+              break;
             case UnitType.Artillery:
-              result =2000;
+              result = 2000;
+              break;
           }
           result = 20;
+          break;
       }
     }
-    return result* (isDiagonal ? 1.2: 1);
+    return result * (isDiagonal ? 1.2 : 1);
   }
 
   pathFinderVisited(xp: number, yp: number) {
