@@ -48,6 +48,7 @@ export class RangedUnit implements Unit {
       if (step != null) {
         this.setX(step.x);
         this.setY(step.y);
+        console.log("Update: setting x, y to "+ this.x + ", " + this.y);
         this.currentPathPosition++;
       }
     }
