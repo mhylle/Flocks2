@@ -1,6 +1,6 @@
 <div style="position: relative; height: 640px">
   <level></level>
-  <div *ngFor="let unit of units" style="position: absolute; background-color: red; margin:0;padding:0"
+  <div *ngFor="let unit of units" style="position: absolute; margin:0;padding:0"
        [ngClass]="[unit.isSelected() ? 'selectedUnit' : UnitType[unit.type]]"
        [style.width]="unit.width"
        [style.height]="unit.height"
