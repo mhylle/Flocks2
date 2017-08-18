@@ -111,7 +111,7 @@ export class LevelService {
     this.level[y][x] = building;
   }
 
-  cost(unit: Unit, cx: number, cy: number, xp: number, yp: number): number {
+  cost(unit: Unit, cx: number, cy: number, xp: number, yp: number, useDiagonal: boolean): number {
     let result = 1000000;
     let isDiagonal = false;
     if (this.level[yp] != null) {
@@ -167,7 +167,8 @@ export class LevelService {
           break;
       }
     }
-    return result * (isDiagonal ? 1.2 : 1);
+    return isDiagonal && useDiagonal ? result * Math.sqrt(4) : result;
+
   }
 
   pathFinderVisited(xp: number, yp: number) {

@@ -94,21 +94,22 @@ export class GameEngineComponent implements OnInit {
   }
 
   private tick() {
-    let level = this.levelService.level;
-    for (let i = 0; i < level.length; i++) {
-      let row = level[i];
-      for (let j = 0; j < row.length; j++) {
-        let tile = row[j];
-        for (let k = 0; k < this.units.length; k++) {
+    for (let k = 0; k < this.units.length; k++) {
+      let level = this.levelService.level;
+      for (let i = 0; i < level.length; i++) {
+        let row = level[i];
+        for (let j = 0; j < row.length; j++) {
+          let tile = row[j];
+
           let unit = this.units[k];
           if (unit.getPath() != null && unit.getPath().contains(j, i)) {
             tile.setPathed(true);
           }
-          this.units[k].update();
-        }
 
-        tile.setCost(this.mapNodes[j][i].cost);
+          tile.setCost(this.mapNodes[j][i].cost);
+        }
       }
+      this.units[k].update();
     }
   }
 
