@@ -10,6 +10,7 @@ import {GroundTypes} from "../level/model/level/GroundTypes";
 import {Tile} from "../level/model/level/Tile";
 import {PathfinderService} from "../pathing/pathfinder.service";
 import {MapNode} from "../pathing/MapNode";
+import {MeleeUnit} from "../level/model/units/MeleeUnit";
 
 @Component({
   selector: 'gameengine',
@@ -56,14 +57,17 @@ export class GameEngineComponent implements OnInit {
   }
 
   private createUnit(tile: Tile) {
-    let unit = new RangedUnit();
+    let unit =null;
     if (this.selectedUnitType == UnitType.Archer) {
+      unit  = new RangedUnit();
       unit.setName("A");
     }
     if (this.selectedUnitType == UnitType.Artillery) {
+      unit =  new RangedUnit();
       unit.setName("M");
     }
     if (this.selectedUnitType == UnitType.Infantry) {
+      unit = new MeleeUnit();
       unit.setName("I");
     }
     unit.setX(tile.x);
