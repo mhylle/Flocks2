@@ -108,6 +108,9 @@ export class LevelService {
     building.setWidth(1);
     building.setHeight(1);
     building.type = GroundTypes.Building;
+    if (building.type == GroundTypes.Building) {
+      building.avatar = "../../../assets/tower.png"
+    }
     this.level[y][x] = building;
   }
 

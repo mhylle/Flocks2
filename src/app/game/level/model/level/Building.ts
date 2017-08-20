@@ -5,21 +5,22 @@ import * as globals from '../../../globals';
 export class Building implements Tile {
   name: string;
   hp: number;
-
   type: GroundTypes;
 
   x: number;
+
   y: number;
   w: number;
   h: number;
-
   posX: string;
+
   posY: string;
   width: string;
   height: string;
+  cost: number;
+  avatar: string;
   private selected: boolean;
   private pathed: boolean;
-  cost: number;
 
   setX(x: number) {
     this.x = x;

@@ -5,6 +5,7 @@
      [style.left]="tile.posX"
      [style.top]="tile.posY"
      (click)="onTileClicked(tile)">
-  {{tile.cost}}
+  <img src="{{tile.avatar}}"
+       [style.width]="tile.width" [style.height]="tile.height" *ngIf="tile.avatar"/>
 </div>
 
