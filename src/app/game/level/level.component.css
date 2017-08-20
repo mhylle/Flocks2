@@ -30,11 +30,14 @@
 }
 
 .Building {
-  background-color: aqua;
+  /*background-color: aqua;*/
+  background-image: url("../../../assets/tower.png");
   /*width: 20px;*/
   /*height: 20px;*/
   border: solid 1px lightblue;
+}
 
+.tower {
 }
 .selectedTile {
   border: solid 2px black;
