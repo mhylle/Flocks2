@@ -9,7 +9,6 @@ import {Subscription} from "rxjs/Subscription";
 import {GroundTypes} from "../level/model/level/GroundTypes";
 import {Tile} from "../level/model/level/Tile";
 import {PathfinderService} from "../pathing/pathfinder.service";
-import {MapNode} from "../pathing/MapNode";
 import {MeleeUnit} from "../level/model/units/MeleeUnit";
 
 @Component({

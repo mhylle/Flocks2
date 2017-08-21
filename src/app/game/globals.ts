@@ -1,1 +1,1 @@
-export const sizeFactor: number = 32;
+export const sizeFactor: number = 20;
