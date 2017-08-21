@@ -81,17 +81,7 @@ export class GameEngineComponent implements OnInit {
   ngOnInit() {
   }
 
-  mapNodes: MapNode[][];
-
   startGame() {
-    // for (let i = 0; i < this.units.length; i++) {
-    //   let unit = this.units[i];
-    //   let target = unit.getTarget();
-    //   if (target != null) {
-    //     unit.setPath(this.pathFinderService.findPath(unit, target));
-    //     this.mapNodes = this.pathFinderService.getNodes();
-    //   }
-    // }
 
     this.timer.subscribe(t => {
       this.tick();
@@ -105,20 +95,7 @@ export class GameEngineComponent implements OnInit {
       if (target != null) {
         unit.setPath(this.pathFinderService.findPath(unit, target));
       }
-      // let level = this.levelService.level;
-      // for (let i = 0; i < level.length; i++) {
-      //   let row = level[i];
-      //   for (let j = 0; j < row.length; j++) {
-      //     let tile = row[j];
-      //
-      //     let unit = this.units[k];
-      //     // if (unit.getPath() != null && unit.getPath().contains(j, i)) {
-      //     //   tile.setPathed(true);
-      //     // }
-      //     //
-      //     // tile.setCost(this.mapNodes[j][i].cost);
-      //   }
-      // }
+
       // 0 is ourself?
       unit.update(1);
     }
