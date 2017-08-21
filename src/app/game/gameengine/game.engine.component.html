@@ -11,9 +11,15 @@
   </div>
 </div>
 <ul class="unitSelector">
-  <li class="Archer" (click)="setUnitType(UnitType.Archer)">A</li>
-  <li class="Artillery" (click)="setUnitType(UnitType.Artillery)">M</li>
-  <li class="Infantry" (click)="setUnitType(UnitType.Infantry)">I</li>
+  <li class="Archer" (click)="setUnitType(UnitType.Archer)"
+      [ngClass]="{'selectorSelected' : selectedUnitType == UnitType.Archer}">A
+  </li>
+  <li class="Artillery" (click)="setUnitType(UnitType.Artillery)"
+      [ngClass]="{'selectorSelected' : selectedUnitType == UnitType.Artillery}">M
+  </li>
+  <li class="Infantry" (click)="setUnitType(UnitType.Infantry)"
+      [ngClass]="{'selectorSelected' : selectedUnitType == UnitType.Infantry}">I
+  </li>
 </ul>
 
 <div style="position: relative">

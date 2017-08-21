@@ -9,7 +9,9 @@
   background-color: orange;
 }
 
-
+.selectorSelected {
+  filter: brightness(150%);
+}
 .Archer {
   background-color: saddlebrown;
   width: 32px;
