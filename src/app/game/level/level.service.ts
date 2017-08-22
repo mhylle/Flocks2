@@ -12,7 +12,7 @@ export class LevelService {
 
   towerPositions: number[][];
   level: Tile[][] = [];
-  private units: Unit[];
+  private units: Unit[] = [];
 
   visited: boolean[][] = [];
   private tileClickedSource = new Subject<Tile>();
