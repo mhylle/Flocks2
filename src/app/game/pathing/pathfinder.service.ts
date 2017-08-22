@@ -30,6 +30,8 @@ export class PathfinderService {
         this.nodes[i][j] = new MapNode(i, j);
       }
     }
+
+
     let tile = level[target.x][target.y];
     if (tile.isBlocked()) {
       return null;
@@ -121,6 +123,14 @@ export class PathfinderService {
     let invalid = (x < 0) || (y < 0) || (x > (this.levelService.getWidthInTiles() - 1)) || (y > (this.levelService.getHeightInTiles() - 1));
     if ((!invalid) && ((unit.x != x) || (unit.y != y))) {
       invalid = level[y][x].isBlocked();
+    }
+
+    for (let i = 0; i < this.levelService.getUnits().length; i++) {
+      let otherUnit = this.levelService.getUnits()[i];
+      if (otherUnit != unit && otherUnit.x == x && otherUnit.y == y ) {
+        invalid = true;
+        break;
+      }
     }
     return !invalid;
   }

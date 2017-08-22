@@ -12,8 +12,9 @@ export class LevelService {
 
   towerPositions: number[][];
   level: Tile[][] = [];
-  visited: boolean[][] = [];
+  private units: Unit[];
 
+  visited: boolean[][] = [];
   private tileClickedSource = new Subject<Tile>();
   tileClickedSource$ = this.tileClickedSource.asObservable();
   private unitClickedSource = new Subject<Unit>();
@@ -198,4 +199,13 @@ export class LevelService {
   unitClicked(unit: Unit) {
     this.unitClickedSource.next(unit);
   }
+
+  addUnit(unit: Unit) {
+    this.units.push(unit);
+  }
+
+  getUnits() : Unit[] {
+    return this.units;
+  }
+
 }

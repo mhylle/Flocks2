@@ -74,6 +74,7 @@ export class GameEngineComponent implements OnInit {
     unit.setWidth(1);
     unit.setHeight(1);
     unit.type = this.selectedUnitType;
+    this.levelService.addUnit(unit);
     this.units.push(unit);
   }
 
