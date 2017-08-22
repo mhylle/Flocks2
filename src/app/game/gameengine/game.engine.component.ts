@@ -89,6 +89,7 @@ export class GameEngineComponent implements OnInit {
   }
 
   private tick() {
+
     for (let k = 0; k < this.units.length; k++) {
       let unit = this.units[k];
       let target = unit.getTarget();

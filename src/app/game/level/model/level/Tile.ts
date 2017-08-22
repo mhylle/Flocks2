@@ -14,6 +14,8 @@ export interface Tile {
   type: GroundTypes;
   cost: number;
   avatar: string;
+  speedX : number;
+  speedY : number;
   setX(x: number);
 
   setY(y: number);

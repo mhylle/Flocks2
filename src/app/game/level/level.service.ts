@@ -72,6 +72,9 @@ export class LevelService {
         if (this.towerPositions[y][x] === 3) {
           this.createGround(x, y, GroundTypes.Rock);
         }
+        if (this.towerPositions[y][x] === 4) {
+          this.createGround(x, y, GroundTypes.FloatSam);
+        }
         this.visited[y][x] = false;
       }
     }
@@ -95,6 +98,7 @@ export class LevelService {
     ground.setY(y);
     ground.setWidth(1);
     ground.setHeight(1);
+    ground.speedX = 1;
     switch (groundType) {
       case GroundTypes.Grass:
         ground.setBlocked(false);
@@ -107,6 +111,9 @@ export class LevelService {
         break;
       case GroundTypes.Water:
         ground.setBlocked(true);
+        break;
+      case GroundTypes.FloatSam:
+        ground.setBlocked(false);
         break;
 
 
@@ -181,6 +188,20 @@ export class LevelService {
               break;
           }
           result = 20;
+          break;
+        case GroundTypes.FloatSam:
+          switch (unit.type) {
+            case UnitType.Archer:
+              result = 6;
+              break;
+            case UnitType.Infantry:
+              result = 6;
+              break;
+            case UnitType.Artillery:
+              result = 2000;
+              break;
+          }
+          result = 8;
           break;
       }
     }

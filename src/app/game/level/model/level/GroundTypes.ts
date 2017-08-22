@@ -3,5 +3,6 @@ export enum GroundTypes {
   Water = 2,
   Rock = 3,
   Wall = 4,
-  Building = 5
+  Building = 5,
+  FloatSam = 6
 }

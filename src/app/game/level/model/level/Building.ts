@@ -6,19 +6,23 @@ export class Building implements Tile {
   name: string;
   hp: number;
   type: GroundTypes;
-
   x: number;
 
   y: number;
+
   w: number;
   h: number;
   posX: string;
-
   posY: string;
+
   width: string;
   height: string;
   cost: number;
   avatar: string;
+
+  speedX: number = 0
+  speedY: number = 0;
+
   private selected: boolean;
   private pathed: boolean;
 
