@@ -1,29 +1,29 @@
 .Water {
-  background-color: blue;
-  border: solid 1px lightblue;
+  background-color: #0b1489;
+  border: solid 1px #0b14ce;
   /*width: 20px;*/
   /*height: 20px;*/
 }
 
 .Rock {
-  background-color: saddlebrown;
-  border: solid 1px lightblue;
+  background-color: #6e4c00;
+  border: solid 1px #785500;
   /*width: 20px;*/
   /*height: 20px;*/
 
 }
 
 .Grass {
-  background-color: green;
-  border: solid 1px lightblue;
+  background-color: #039400;
+  border: solid 1px #03b000;
   /*width: 20px;*/
   /*height: 20px;*/
 
 }
 
 .Wall {
-  background-color: orange;
-  border: solid 1px lightblue;
+  background-color: #a65b0b;
+  border: solid 1px #af640b;
   /*width: 20px;*/
   /*height: 20px;*/
 
@@ -35,7 +35,7 @@
 
   /*width: 20px;*/
   /*height: 20px;*/
-  border: solid 1px lightblue;
+  /*border: solid 1px lightblue;*/
 }
 
 .tower {
