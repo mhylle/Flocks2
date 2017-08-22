@@ -56,13 +56,13 @@ export class GameEngineComponent implements OnInit {
   }
 
   private createUnit(tile: Tile) {
-    let unit =null;
+    let unit = null;
     if (this.selectedUnitType == UnitType.Archer) {
-      unit  = new RangedUnit();
+      unit = new RangedUnit();
       unit.setName("A");
     }
     if (this.selectedUnitType == UnitType.Artillery) {
-      unit =  new RangedUnit();
+      unit = new RangedUnit();
       unit.setName("M");
     }
     if (this.selectedUnitType == UnitType.Infantry) {
@@ -82,7 +82,6 @@ export class GameEngineComponent implements OnInit {
   }
 
   startGame() {
-
     this.timer.subscribe(t => {
       this.tick();
     });
@@ -90,6 +89,20 @@ export class GameEngineComponent implements OnInit {
 
   private tick() {
 
+    for (let i = 0; i < this.levelService.getLevel().length; i++) {
+      let obj = this.levelService.getLevel()[i];
+      for (let j = 0; j < obj.length; j++) {
+        let tile = obj[j];
+        if (tile.speedX > 0) {
+          tile.setX(tile.x + tile.speedX);
+        }
+        if (tile.speedY > 0) {
+          tile.setY(tile.y + tile.speedY);
+        }
+
+      }
+
+    }
     for (let k = 0; k < this.units.length; k++) {
       let unit = this.units[k];
       let target = unit.getTarget();
