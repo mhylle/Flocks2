@@ -11,11 +11,11 @@
 }
 
 .odd {
-  filter: brightness(120%);
+  filter: brightness(190%);
 }
 
 .even {
-  /*filter: brightness(150%);*/
+  filter: brightness(200%);
 }
 
 .FloatSam {
