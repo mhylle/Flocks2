@@ -208,7 +208,6 @@ export class LevelService {
       }
     }
     return isDiagonal && useDiagonal ? result * Math.sqrt(4) : result;
-
   }
 
   pathFinderVisited(xp: number, yp: number) {
