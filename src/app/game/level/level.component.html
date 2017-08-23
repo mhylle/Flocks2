@@ -1,4 +1,4 @@
-<div *ngFor="let tile of level;let index=index;let isOdd=odd;let isEven=even"
+<div *ngFor="let tile of level;let index=index;"
      style="position: absolute;margin:0;padding:0"
      [style.width]="tile.width"
      [style.height]="tile.height"
@@ -9,7 +9,7 @@
      [class.even]="(tile.x %2 == 0 && tile.y % 2 == 1) || (tile.x %2 == 1 && tile.y % 2 == 0)"
      [ngClass]="GroundTypes[tile.type]">
   <img src="{{tile.avatar}}"
-  [style.width]="tile.width" [style.height]="tile.height" *ngIf="tile.avatar"/>
+       [style.width]="tile.width" [style.height]="tile.height" *ngIf="tile.avatar"/>
 </div>
 
 <!-- [ngClass]="[tile.isSelected() ? 'selectedTile' : GroundTypes[tile.type], tile.isPath() ? 'pathed' : '']" -->

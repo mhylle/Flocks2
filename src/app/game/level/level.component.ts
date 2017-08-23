@@ -3,7 +3,6 @@ import {Tile} from './model/level/Tile';
 import {GroundTypes} from "./model/level/GroundTypes";
 import {LevelService} from "./level.service";
 
-
 @Component({
   selector: 'level',
   templateUrl: './level.component.html',

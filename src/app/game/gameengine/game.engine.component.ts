@@ -10,6 +10,7 @@ import {GroundTypes} from "../level/model/level/GroundTypes";
 import {Tile} from "../level/model/level/Tile";
 import {PathfinderService} from "../pathing/pathfinder.service";
 import {MeleeUnit} from "../level/model/units/MeleeUnit";
+import {Ground} from "../level/model/level/Ground";
 
 @Component({
   selector: 'gameengine',
@@ -52,7 +53,7 @@ export class GameEngineComponent implements OnInit {
       if (this.selectedUnit != null) {
         this.selectedUnit.setSelected(true);
       }
-    })
+    });
   }
 
   private createUnit(tile: Tile) {
@@ -82,27 +83,36 @@ export class GameEngineComponent implements OnInit {
   }
 
   startGame() {
+    this.createFloatsam();
     this.timer.subscribe(t => {
       this.tick();
     });
   }
 
+  private createFloatsam() {
+    let floatSam = new Ground();
+    floatSam.speedX = 1;
+    floatSam.speedY = 0;
+    floatSam.setHeight(2);
+    floatSam.setWidth(1);
+    floatSam.type = GroundTypes.FloatSam;
+    floatSam.setX(0);
+    floatSam.setY(15);
+    this.levelService.addTile(floatSam);
+  }
+
   private tick() {
 
-    for (let i = 0; i < this.levelService.getLevel().length; i++) {
-      let obj = this.levelService.getLevel()[i];
-      for (let j = 0; j < obj.length; j++) {
-        let tile = obj[j];
+    for (let i = 0; i < this.levelService.dynamicTiles.length; i++) {
+        let tile = this.levelService.dynamicTiles[i];
         if (tile.speedX > 0) {
           tile.setX(tile.x + tile.speedX);
         }
         if (tile.speedY > 0) {
           tile.setY(tile.y + tile.speedY);
         }
-
       }
 
-    }
     for (let k = 0; k < this.units.length; k++) {
       let unit = this.units[k];
       let target = unit.getTarget();
