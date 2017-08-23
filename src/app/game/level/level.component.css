@@ -15,10 +15,16 @@
 
 .Grass {
   background-color: #039400;
-  border: solid 1px #03b000;
+  /*border: solid 1px #03b000;*/
   /*width: 20px;*/
   /*height: 20px;*/
+}
 
+.odd {
+  filter: brightness(120%);
+}
+.even {
+  /*filter: brightness(150%);*/
 }
 .FloatSam {
   background-color: #5d5944;

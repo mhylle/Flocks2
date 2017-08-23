@@ -1,11 +1,15 @@
-<div *ngFor="let tile of level" style="position: absolute;margin:0;padding:0"
-     [ngClass]="[tile.isSelected() ? 'selectedTile' : GroundTypes[tile.type], tile.isPath() ? 'pathed' : '']"
+<div *ngFor="let tile of level;let index=index;let isOdd=odd;let isEven=even"
+     style="position: absolute;margin:0;padding:0"
      [style.width]="tile.width"
      [style.height]="tile.height"
      [style.left]="tile.posX"
      [style.top]="tile.posY"
-     (click)="onTileClicked(tile)">
+     (click)="onTileClicked(tile)"
+     [class.odd]="(tile.x % 2 == 0 && tile.y % 2 == 0) || (tile.x %2 == 1 && tile.y % 2 == 1)"
+     [class.even]="(tile.x %2 == 0 && tile.y % 2 == 1) || (tile.x %2 == 1 && tile.y % 2 == 0)"
+     [ngClass]="GroundTypes[tile.type]">
   <img src="{{tile.avatar}}"
-       [style.width]="tile.width" [style.height]="tile.height" *ngIf="tile.avatar"/>
+  [style.width]="tile.width" [style.height]="tile.height" *ngIf="tile.avatar"/>
 </div>
 
+<!-- [ngClass]="[tile.isSelected() ? 'selectedTile' : GroundTypes[tile.type], tile.isPath() ? 'pathed' : '']" -->
