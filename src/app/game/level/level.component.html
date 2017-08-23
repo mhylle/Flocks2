@@ -11,5 +11,14 @@
   <img src="{{tile.avatar}}"
        [style.width]="tile.width" [style.height]="tile.height" *ngIf="tile.avatar"/>
 </div>
+<div *ngFor="let dynamicTile of dynamicTiles;let index=index;"
+     style="position: absolute;margin:0;padding:0"
+     [style.width]="dynamicTile.width"
+     [style.height]="dynamicTile.height"
+     [style.left]="dynamicTile.posX"
+     [style.top]="dynamicTile.posY"
+     class="FloatSam">
+  Tile: {{dynamicTile.x}}
+</div>
 
 <!-- [ngClass]="[tile.isSelected() ? 'selectedTile' : GroundTypes[tile.type], tile.isPath() ? 'pathed' : '']" -->

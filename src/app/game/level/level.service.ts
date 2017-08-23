@@ -118,8 +118,6 @@ export class LevelService {
         ground.speedX = 1;
         ground.setBlocked(false);
         break;
-
-
     }
     ground.type = groundType;
     this.level[y][x] = ground;

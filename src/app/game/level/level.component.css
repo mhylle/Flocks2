@@ -20,6 +20,9 @@
 
 .FloatSam {
   background-color: #5d5944;
+  width: 20px;
+  height: 20px;
+  border: solid 1px blue;
 }
 
 .Wall {

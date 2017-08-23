@@ -10,7 +10,6 @@ import {LevelService} from "./level.service";
 })
 export class LevelComponent implements OnInit {
   GroundTypes: typeof GroundTypes = GroundTypes;
-
   level: Tile[] = [];
 
   constructor(private levelService: LevelService) {
@@ -30,6 +29,4 @@ export class LevelComponent implements OnInit {
     this.levelService.tileClicked(tile);
     console.log("Clicked on tile: " + tile.x + ", " + tile.y );
   }
-
-
 }

@@ -29,7 +29,7 @@ export class GameEngineComponent implements OnInit {
 
   constructor(private levelService: LevelService, private pathFinderService: PathfinderService) {
     this.timer = TimerObservable.create(0, 400);
-
+    this.createFloatsam();
     this.tileClickedSubscription = this.levelService.tileClickedSource$.subscribe(tile => {
       if (tile.type == GroundTypes.Building && this.selectedUnit != null && this.selectedUnitType != null) {
         tile.setSelected(true);
@@ -83,7 +83,7 @@ export class GameEngineComponent implements OnInit {
   }
 
   startGame() {
-    this.createFloatsam();
+
     this.timer.subscribe(t => {
       this.tick();
     });
@@ -102,17 +102,6 @@ export class GameEngineComponent implements OnInit {
   }
 
   private tick() {
-
-    for (let i = 0; i < this.levelService.dynamicTiles.length; i++) {
-        let tile = this.levelService.dynamicTiles[i];
-        if (tile.speedX > 0) {
-          tile.setX(tile.x + tile.speedX);
-        }
-        if (tile.speedY > 0) {
-          tile.setY(tile.y + tile.speedY);
-        }
-      }
-
     for (let k = 0; k < this.units.length; k++) {
       let unit = this.units[k];
       let target = unit.getTarget();
@@ -122,6 +111,17 @@ export class GameEngineComponent implements OnInit {
 
       // 0 is ourself?
       unit.update(1);
+    }
+
+    for (let i = 0; i < this.levelService.dynamicTiles.length; i++) {
+      let tile = this.levelService.dynamicTiles[i];
+      if (tile.speedX > 0) {
+        tile.setX(tile.x + tile.speedX);
+        console.log("moving dynamic to : " + tile.x);
+      }
+      if (tile.speedY > 0) {
+        tile.setY(tile.y + tile.speedY);
+      }
     }
   }
 
