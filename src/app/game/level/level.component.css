@@ -1,58 +1,37 @@
 .Water {
   background-color: #0b1489;
-  border: solid 1px #0b14ce;
-  /*width: 20px;*/
-  /*height: 20px;*/
 }
 
 .Rock {
   background-color: #6e4c00;
-  border: solid 1px #785500;
-  /*width: 20px;*/
-  /*height: 20px;*/
-
 }
 
 .Grass {
   background-color: #039400;
-  /*border: solid 1px #03b000;*/
-  /*width: 20px;*/
-  /*height: 20px;*/
 }
 
 .odd {
   filter: brightness(120%);
 }
+
 .even {
   /*filter: brightness(150%);*/
 }
+
 .FloatSam {
   background-color: #5d5944;
-  border: solid 1px #5d5944;
-  /*width: 20px;*/
-  /*height: 20px;*/
-
 }
 
 .Wall {
   background-color: #a65b0b;
-  border: solid 1px #af640b;
-  /*width: 20px;*/
-  /*height: 20px;*/
-
 }
 
 .Building {
-  /*background-color: aqua;*/
-  background-image: url("../../../assets/tower.png");
-
-  /*width: 20px;*/
-  /*height: 20px;*/
-  /*border: solid 1px lightblue;*/
 }
 
 .tower {
 }
+
 .selectedTile {
   border: solid 2px black;
 }
