@@ -102,6 +102,7 @@ export class LevelService {
     switch (groundType) {
       case GroundTypes.Grass:
         ground.setBlocked(false);
+        ground.avatar = "../../../assets/grass.png"
         break;
       case GroundTypes.Rock:
         ground.setBlocked(true);
@@ -133,6 +134,7 @@ export class LevelService {
     if (building.type == GroundTypes.Building) {
       building.avatar = "../../../assets/tower.png"
     }
+
     this.level[y][x] = building;
   }
 
@@ -226,7 +228,7 @@ export class LevelService {
     this.units.push(unit);
   }
 
-  getUnits() : Unit[] {
+  getUnits(): Unit[] {
     return this.units;
   }
 
