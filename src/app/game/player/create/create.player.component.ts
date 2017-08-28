@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Player} from "../Player";
 
 @Component({
   selector: 'app-create',
@@ -7,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreatePlayerComponent implements OnInit {
 
+  player: Player;
   constructor() { }
 
   ngOnInit() {

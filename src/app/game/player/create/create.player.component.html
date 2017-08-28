@@ -1,3 +1,11 @@
-<p>
-  create works!
-</p>
+<div>
+  <div>Name:</div>
+  <div><input class="form-control" name="userName" required [(ngModel)]="player.name"></div>
+</div>
+<div>
+  <div>email:</div>
+  <div><input class="form-control" name="userEmail" required></div>
+</div>
+<div>
+  {{player.name}}
+</div>
