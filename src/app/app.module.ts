@@ -9,12 +9,14 @@ import {GameEngineComponent} from './game/gameengine/game.engine.component';
 import {LevelService} from "./game/level/level.service";
 import {PathfinderService} from "./game/pathing/pathfinder.service";
 import {HeuristicService} from "./game/pathing/heuristic.service";
+import { CreateComponent } from './game/player/create/create.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LevelComponent,
-    GameEngineComponent
+    GameEngineComponent,
+    CreateComponent
   ],
   imports: [
     BrowserModule,
