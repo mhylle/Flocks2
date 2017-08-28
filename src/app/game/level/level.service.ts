@@ -24,8 +24,8 @@ export class LevelService {
   constructor() {
     this.towerPositions = [
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0],
-      [0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0],
+      [0, 0, 1, 5, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 5, 0, 0],
+      [0, 0, 6, 7, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 6, 7, 0, 0],
       [0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -52,8 +52,8 @@ export class LevelService {
       [0, 0, 0, 3, 3, 0, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0],
-      [0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0],
+      [0, 0, 1, 5, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 5, 0, 0],
+      [0, 0, 6, 7, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 6, 7, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     ];
     for (let y = 0; y < this.towerPositions.length; y++) {
@@ -65,7 +65,16 @@ export class LevelService {
           this.createGround(x, y, GroundTypes.Grass);
         }
         if (this.towerPositions[y][x] === 1) {
-          this.createBuilding(x, y);
+          this.createBuilding(x, y, "UL");
+        }
+        if (this.towerPositions[y][x] === 5) {
+          this.createBuilding(x, y, "UR");
+        }
+        if (this.towerPositions[y][x] === 6) {
+          this.createBuilding(x, y, "LL");
+        }
+        if (this.towerPositions[y][x] === 7) {
+          this.createBuilding(x, y, "LR");
         }
         if (this.towerPositions[y][x] === 2) {
           this.createGround(x, y, GroundTypes.Water);
@@ -123,7 +132,7 @@ export class LevelService {
     this.level[y][x] = ground;
   }
 
-  private createBuilding(x: number, y: number) {
+  private createBuilding(x: number, y: number, type: string ) {
     const building = new Building();
     building.setX(x);
     building.setY(y);
@@ -131,7 +140,19 @@ export class LevelService {
     building.setHeight(1);
     building.type = GroundTypes.Building;
     if (building.type == GroundTypes.Building) {
-      building.avatar = "../../../assets/tower.png"
+      if (type == "UL") {
+        building.avatar = "../../../assets/tower_ul.png"
+      }
+      if (type == "UR") {
+        building.avatar = "../../../assets/tower_ur.png"
+      }
+      if (type == "LL") {
+        building.avatar = "../../../assets/tower_ll.png"
+      }
+      if (type == "LR") {
+        building.avatar = "../../../assets/tower_lr.png"
+      }
+
     }
 
     this.level[y][x] = building;
