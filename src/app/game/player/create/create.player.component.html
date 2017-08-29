@@ -1,11 +1,13 @@
-<div>
+<form><div>
   <div>Name:</div>
   <div><input class="form-control" name="userName" required [(ngModel)]="player.name"></div>
 </div>
 <div>
   <div>email:</div>
-  <div><input class="form-control" name="userEmail" required></div>
+  <div><input class="form-control" name="userEmail" required [(ngModel)]="player.email"></div>
 </div>
 <div>
   {{player.name}}
 </div>
+  <div><button type="submit">Create</button> </div>
+</form>

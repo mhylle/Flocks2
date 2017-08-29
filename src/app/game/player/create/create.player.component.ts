@@ -12,6 +12,7 @@ export class CreatePlayerComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.player = new Player();
   }
 
 }
