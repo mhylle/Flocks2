@@ -1,10 +1,16 @@
 import {Unit} from "./Unit";
 import {UnitType} from "./UnitType";
 import {Tile} from "../level/Tile";
-import * as globals from '../../../globals';
-import {Path} from "../../../pathing/Path";
+import * as globals from '../../game/globals';
+import {Path} from "../../game/pathing/Path";
 
-export class RangedUnit implements Unit {
+export class MeleeUnit implements Unit {
+  id: string;
+
+  getId(): string {
+    return undefined;
+  }
+
 
   type: UnitType;
   x: number;

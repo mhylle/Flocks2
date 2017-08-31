@@ -1,10 +1,8 @@
 import {Tile} from "./Tile";
 import {GroundTypes} from "./GroundTypes";
-import * as globals from '../../../globals';
+import * as globals from '../../game/globals';
 
-export class Building implements Tile {
-  name: string;
-  hp: number;
+export class Ground implements Tile {
   type: GroundTypes;
   x: number;
 
@@ -19,17 +17,16 @@ export class Building implements Tile {
   height: string;
   cost: number;
   avatar: string;
-
-  speedX: number = 0
+  speedX: number = 0;
   speedY: number = 0;
 
-  private selected: boolean;
+
+  private blocked: boolean;
   private pathed: boolean;
 
   setX(x: number) {
     this.x = x;
     this.posX = x * globals.sizeFactor + "px";
-    console.log("setting build x to: Tile:" + this.x + " UI: " + this.posX);
   }
 
   setY(y: number) {
@@ -48,15 +45,20 @@ export class Building implements Tile {
   }
 
   isBlocked(): boolean {
-    return true;
+    return this.blocked;
+  }
+
+  setBlocked(blocked: boolean) {
+    this.blocked = blocked;
   }
 
   setSelected(selected: boolean): void {
-    this.selected = selected;
+    // purposefully ignored, cannot select ground.
   }
 
+
   isSelected(): boolean {
-    return this.selected;
+    return false;
   }
 
   setPathed(pathed: boolean) {
@@ -66,7 +68,6 @@ export class Building implements Tile {
   isPath(): boolean {
     return this.pathed;
   }
-
 
   setCost(cost: number): void {
     this.cost = cost;

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {Unit} from "../level/model/units/Unit";
-import {Tile} from "../level/model/level/Tile";
+import {Unit} from "../../model/units/Unit";
+import {Tile} from "../../model/level/Tile";
 
 @Injectable()
 export class HeuristicService {

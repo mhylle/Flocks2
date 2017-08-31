@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Tile} from './model/level/Tile';
-import {GroundTypes} from "./model/level/GroundTypes";
+import {Tile} from '../../model/level/Tile';
+import {GroundTypes} from "../../model/level/GroundTypes";
 import {LevelService} from "./level.service";
 
 @Component({

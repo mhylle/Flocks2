@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {Path} from "./Path";
-import {Tile} from "../level/model/level/Tile";
+import {Tile} from "../../model/level/Tile";
 import {LevelService} from "../level/level.service";
 import {MapNode} from "./MapNode";
-import {Unit} from "../level/model/units/Unit";
+import {Unit} from "../../model/units/Unit";
 import {HeuristicService} from "./heuristic.service";
 
 @Injectable()

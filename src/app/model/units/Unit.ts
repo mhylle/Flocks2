@@ -1,8 +1,9 @@
 import {UnitType} from "./UnitType";
 import {Tile} from "../level/Tile";
-import {Path} from "../../../pathing/Path";
+import {Path} from "../../game/pathing/Path";
 
 export interface Unit {
+  id: string;
   type: UnitType;
 
   x: number;
@@ -15,6 +16,7 @@ export interface Unit {
   width: string;
   height: string;
 
+  getId(): string;
   setX(x: number) : void;
 
   setY(y: number): void;

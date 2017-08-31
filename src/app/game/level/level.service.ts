@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
-import {Tile} from "./model/level/Tile";
-import {GroundTypes} from "./model/level/GroundTypes";
-import {Building} from "./model/level/Building";
-import {Ground} from "./model/level/Ground";
-import {Unit} from "./model/units/Unit";
-import {UnitType} from "./model/units/UnitType";
+import {Tile} from "../../model/level/Tile";
+import {GroundTypes} from "../../model/level/GroundTypes";
+import {Building} from "../../model/level/Building";
+import {Ground} from "../../model/level/Ground";
+import {Unit} from "../../model/units/Unit";
+import {UnitType} from "../../model/units/UnitType";
 import {Subject} from "rxjs/Subject";
 
 @Injectable()

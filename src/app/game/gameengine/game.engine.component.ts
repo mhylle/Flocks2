@@ -1,16 +1,16 @@
 import {Component, OnInit} from '@angular/core';
-import {RangedUnit} from "../level/model/units/RangedUnit";
-import {UnitType} from "../level/model/units/UnitType";
-import {Unit} from "../level/model/units/Unit";
+import {RangedUnit} from "../../model/units/RangedUnit";
+import {UnitType} from "../../model/units/UnitType";
+import {Unit} from "../../model/units/Unit";
 import {TimerObservable} from "rxjs/observable/TimerObservable";
 import {Observable} from "rxjs/Observable";
 import {LevelService} from "../level/level.service";
 import {Subscription} from "rxjs/Subscription";
-import {GroundTypes} from "../level/model/level/GroundTypes";
-import {Tile} from "../level/model/level/Tile";
+import {GroundTypes} from "../../model/level/GroundTypes";
+import {Tile} from "../../model/level/Tile";
 import {PathfinderService} from "../pathing/pathfinder.service";
-import {MeleeUnit} from "../level/model/units/MeleeUnit";
-import {Ground} from "../level/model/level/Ground";
+import {MeleeUnit} from "../../model/units/MeleeUnit";
+import {Ground} from "../../model/level/Ground";
 
 @Component({
   selector: 'gameengine',

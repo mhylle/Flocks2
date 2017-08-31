@@ -12,8 +12,7 @@ import {HeuristicService} from "./game/pathing/heuristic.service";
 import { CreatePlayerComponent } from './game/player/create/create.player.component';
 import {RouterModule} from "@angular/router";
 import { MainScreenComponent } from './main-screen/main-screen.component';
-
-
+import { CreateDeckComponent } from './decks/create-deck/create-deck.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +20,8 @@ import { MainScreenComponent } from './main-screen/main-screen.component';
     LevelComponent,
     GameEngineComponent,
     CreatePlayerComponent,
-    MainScreenComponent
+    MainScreenComponent,
+    CreateDeckComponent
   ],
   imports: [
     BrowserModule,
@@ -35,6 +35,10 @@ import { MainScreenComponent } from './main-screen/main-screen.component';
       {
         path: 'createPlayer',
         component: CreatePlayerComponent
+      },
+      {
+        path: 'decks',
+        component: CreateDeckComponent
       },
       {
         path: 'play',
