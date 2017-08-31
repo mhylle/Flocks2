@@ -1,17 +1,18 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Unit} from "../../model/units/Unit";
+import {UNITS} from "./mock-units";
 
 @Injectable()
 export class UnitsService {
 
-  units: Unit[] = [];
   constructor() {
-    
-
   }
 
   getUnit(id: string) : Unit {
-    return this.units.find(value => value.getId() == id);
+    return UNITS.find(value => value.getId() == id);
+  }
+  getUnits() : Unit[] {
+    return UNITS;
   }
 
   addUnit(unit: Unit) {

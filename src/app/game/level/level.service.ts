@@ -172,7 +172,7 @@ export class LevelService {
           break;
         case GroundTypes.Wall:
           switch (unit.type) {
-            case UnitType.Archer:
+            case UnitType.Ranged:
               result = 10;
               break;
             case UnitType.Infantry:
@@ -186,7 +186,7 @@ export class LevelService {
           break;
         case GroundTypes.Rock:
           switch (unit.type) {
-            case UnitType.Archer:
+            case UnitType.Ranged:
               result = 8;
               break;
             case UnitType.Infantry:
@@ -200,7 +200,7 @@ export class LevelService {
           break;
         case GroundTypes.Water:
           switch (unit.type) {
-            case UnitType.Archer:
+            case UnitType.Ranged:
               result = 8;
               break;
             case UnitType.Infantry:
@@ -214,7 +214,7 @@ export class LevelService {
           break;
         case GroundTypes.FloatSam:
           switch (unit.type) {
-            case UnitType.Archer:
+            case UnitType.Ranged:
               result = 6;
               break;
             case UnitType.Infantry:

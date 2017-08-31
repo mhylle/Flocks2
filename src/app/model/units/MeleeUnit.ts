@@ -5,10 +5,13 @@ import * as globals from '../../game/globals';
 import {Path} from "../../game/pathing/Path";
 
 export class MeleeUnit implements Unit {
+  setId(id: string) {
+    this.id = id;
+  }
   id: string;
 
   getId(): string {
-    return undefined;
+    return this.id;
   }
 
 

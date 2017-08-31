@@ -9,10 +9,10 @@ import {GameEngineComponent} from './game/gameengine/game.engine.component';
 import {LevelService} from "./game/level/level.service";
 import {PathfinderService} from "./game/pathing/pathfinder.service";
 import {HeuristicService} from "./game/pathing/heuristic.service";
-import { CreatePlayerComponent } from './game/player/create/create.player.component';
+import {CreatePlayerComponent} from './game/player/create/create.player.component';
 import {RouterModule} from "@angular/router";
-import { MainScreenComponent } from './main-screen/main-screen.component';
-import { CreateDeckComponent } from './decks/create-deck/create-deck.component';
+import {MainScreenComponent} from './main-screen/main-screen.component';
+import {DeckBuilderComponent} from './decks/deck-builder/deck-builder.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +21,7 @@ import { CreateDeckComponent } from './decks/create-deck/create-deck.component';
     GameEngineComponent,
     CreatePlayerComponent,
     MainScreenComponent,
-    CreateDeckComponent
+    DeckBuilderComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +38,7 @@ import { CreateDeckComponent } from './decks/create-deck/create-deck.component';
       },
       {
         path: 'decks',
-        component: CreateDeckComponent
+        component: DeckBuilderComponent
       },
       {
         path: 'play',
@@ -49,4 +49,5 @@ import { CreateDeckComponent } from './decks/create-deck/create-deck.component';
   providers: [LevelService, PathfinderService, HeuristicService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

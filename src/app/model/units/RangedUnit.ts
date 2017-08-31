@@ -8,7 +8,7 @@ export class RangedUnit implements Unit {
   id: string;
 
   getId(): string {
-    return undefined;
+    return this.id;
   }
 
   type: UnitType;
@@ -25,6 +25,7 @@ export class RangedUnit implements Unit {
   private path: Path;
 
   private name: string;
+  private avatar: string;
 
   setX(x: number) {
     this.x = x;
@@ -90,5 +91,16 @@ export class RangedUnit implements Unit {
 
   getName() : string {
     return this.name;
+  }
+
+  setId(id: string) {
+    this.id = id;
+  }
+
+  setAvatar(avatar: string) {
+    this.avatar = avatar;
+  }
+  getAvatar(): string {
+    return this.avatar;
   }
 }

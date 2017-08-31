@@ -15,6 +15,8 @@ export interface Unit {
   h: number;
   width: string;
   height: string;
+  name: string;
+  avatar: string;
 
   getId(): string;
   setX(x: number) : void;
@@ -40,5 +42,6 @@ export interface Unit {
   setName(name: string);
 
   getName(): string;
+  setId(id: string);
 
 }

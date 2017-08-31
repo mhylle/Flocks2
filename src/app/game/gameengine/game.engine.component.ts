@@ -58,7 +58,7 @@ export class GameEngineComponent implements OnInit {
 
   private createUnit(tile: Tile) {
     let unit = null;
-    if (this.selectedUnitType == UnitType.Archer) {
+    if (this.selectedUnitType == UnitType.Ranged) {
       unit = new RangedUnit();
       unit.setName("A");
     }
