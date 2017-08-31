@@ -29,12 +29,16 @@ import { MainScreenComponent } from './main-screen/main-screen.component';
     HttpModule,
     RouterModule.forRoot([
       {
+        path: '',
+        component: MainScreenComponent
+      },
+      {
         path: 'createPlayer',
         component: CreatePlayerComponent
       },
       {
-        path: '',
-        component: MainScreenComponent
+        path: 'play',
+        component: GameEngineComponent
       }
     ])
   ],
