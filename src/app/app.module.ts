@@ -11,6 +11,7 @@ import {PathfinderService} from "./game/pathing/pathfinder.service";
 import {HeuristicService} from "./game/pathing/heuristic.service";
 import { CreatePlayerComponent } from './game/player/create/create.player.component';
 import {RouterModule} from "@angular/router";
+import { MainScreenComponent } from './main-screen/main-screen.component';
 
 
 
@@ -19,7 +20,8 @@ import {RouterModule} from "@angular/router";
     AppComponent,
     LevelComponent,
     GameEngineComponent,
-    CreatePlayerComponent
+    CreatePlayerComponent,
+    MainScreenComponent
   ],
   imports: [
     BrowserModule,
@@ -29,6 +31,10 @@ import {RouterModule} from "@angular/router";
       {
         path: 'createPlayer',
         component: CreatePlayerComponent
+      },
+      {
+        path: '',
+        component: MainScreenComponent
       }
     ])
   ],
