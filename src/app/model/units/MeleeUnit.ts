@@ -5,6 +5,8 @@ import * as globals from '../../game/globals';
 import {Path} from "../../game/pathing/Path";
 
 export class MeleeUnit implements Unit {
+  hp: number;
+  level: number;
   setId(id: string) {
     this.id = id;
   }
@@ -28,7 +30,8 @@ export class MeleeUnit implements Unit {
   private selected: boolean;
   private path: Path;
 
-  private name: string;
+   name: string;
+  avatar: string;
 
   setX(x: number) {
     this.x = x;

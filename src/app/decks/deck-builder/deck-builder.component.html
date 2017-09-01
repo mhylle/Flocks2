@@ -1,4 +1,6 @@
 Choose one of the following units:
-<div *ngFor="let unit of Units">
-  <div>{{unit.getName()}}</div>
+<div *ngFor="let unit of units" class="unitCard">
+  <div>{{unit.name}}</div>
+  <div>{{unit.hp}}</div>
+  <div>{{unit.level}}</div>
 </div>

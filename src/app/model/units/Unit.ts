@@ -17,6 +17,8 @@ export interface Unit {
   height: string;
   name: string;
   avatar: string;
+  hp: number;
+  level: number;
 
   getId(): string;
   setX(x: number) : void;

@@ -5,6 +5,8 @@ import * as globals from '../../game/globals';
 import {Path} from "../../game/pathing/Path";
 
 export class RangedUnit implements Unit {
+  hp: number;
+  level: number;
   id: string;
 
   getId(): string {
@@ -24,8 +26,8 @@ export class RangedUnit implements Unit {
   private selected: boolean;
   private path: Path;
 
-  private name: string;
-  private avatar: string;
+  name: string;
+  avatar: string;
 
   setX(x: number) {
     this.x = x;
