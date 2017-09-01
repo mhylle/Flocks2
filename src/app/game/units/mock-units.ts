@@ -4,9 +4,7 @@ export const UNITS: any[] = [
   {
     id: 'Arch01',
     name: 'Archer',
-    width: '1px',
-    height: '1px',
-    avatar: '',
+    avatar: 'assets/cannon1.png',
     type: UnitType.Ranged,
     x: 0,
     y: 0,
@@ -17,11 +15,9 @@ export const UNITS: any[] = [
     hp: 128,
     level: 1
   }, {
-    id: 'Mort01',
-    name: 'Mortar',
-    width: '1px',
-    height: '1px',
-    avatar: '',
+    id: 'Cannon01',
+    name: 'Cannon',
+    avatar: 'assets/cannon.png',
     type: UnitType.Artillery, x: 0,
     y: 0,
     posX: '0px',
