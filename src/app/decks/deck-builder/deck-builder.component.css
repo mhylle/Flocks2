@@ -38,3 +38,12 @@
   float: left;
   margin-right: 4px;
 }
+
+.unitType {
+  font-style: italic;
+}
+
+.unitTypeLabel {
+  float: left;
+  margin-right: 4px;
+}
