@@ -13,6 +13,8 @@ import {CreatePlayerComponent} from './game/player/create/create.player.componen
 import {RouterModule} from "@angular/router";
 import {MainScreenComponent} from './main-screen/main-screen.component';
 import {DeckBuilderComponent} from './decks/deck-builder/deck-builder.component';
+import {PlayerService} from "./game/player/player.service";
+import { ContextComponent } from './context/context.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,8 @@ import {DeckBuilderComponent} from './decks/deck-builder/deck-builder.component'
     GameEngineComponent,
     CreatePlayerComponent,
     MainScreenComponent,
-    DeckBuilderComponent
+    DeckBuilderComponent,
+    ContextComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +49,7 @@ import {DeckBuilderComponent} from './decks/deck-builder/deck-builder.component'
       }
     ])
   ],
-  providers: [LevelService, PathfinderService, HeuristicService],
+  providers: [LevelService, PathfinderService, HeuristicService, PlayerService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
